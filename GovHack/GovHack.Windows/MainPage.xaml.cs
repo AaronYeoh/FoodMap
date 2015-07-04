@@ -44,7 +44,13 @@ namespace GovHack
 
             MapLayer.SetPosition(pushpin, new Location(geo.Coordinate.Latitude, geo.Coordinate.Longitude));
 
+            AddPins();
             AddPushpin(new Location(geo.Coordinate.Latitude, geo.Coordinate.Longitude), "Seattle","Hello", DataLayer, "W");
+        }
+
+        private void AddPins()
+        {
+
         }
 
 
