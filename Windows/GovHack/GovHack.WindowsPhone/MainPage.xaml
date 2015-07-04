@@ -18,11 +18,20 @@
             VerticalContentAlignment="Stretch" 
             HorizontalAlignment="Stretch" 
             VerticalAlignment="Stretch">
-            
-            
-            
-            
-         </Maps:MapControl>
+            <Maps:MapItemsControl ItemsSource="{Binding}">
+                <Maps:MapItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Background="Black">
+                            <TextBlock Maps:MapControl.Location="{Binding Location}" Text="{Binding Name}" Maps:MapControl.NormalizedAnchorPoint="{Binding AnchorPoint}" FontSize="20" Margin="5"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </Maps:MapItemsControl.ItemTemplate>
+            </Maps:MapItemsControl>
+
+
+
+
+        </Maps:MapControl>
 
 
     </Grid>
