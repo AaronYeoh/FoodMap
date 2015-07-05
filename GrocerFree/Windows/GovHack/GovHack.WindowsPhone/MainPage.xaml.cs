@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -16,6 +18,7 @@ using Windows.Devices.Geolocation;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls.Maps;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -66,7 +69,7 @@ namespace GovHack
             AddMapIcon(geo);
         }
 
-        private void PopulateMap(List<Locations> locations)
+        private async void PopulateMap(List<Locations> locations)
         {
             foreach (var location in locations)
             {
@@ -76,28 +79,36 @@ namespace GovHack
 
         private async void AddMapIcon(Geoposition geo)
         {
-            var uri = new Uri("ms-appx:///Assets/Fruit/apple.png");
-            var file = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(uri);
-
             MapIcon MapIcon1 = new MapIcon();
            
-            MapIcon1.Image = file;
             MapIcon1.Location = new Geopoint(new BasicGeoposition()
             {
                 Latitude = geo.Coordinate.Latitude,
                 Longitude = geo.Coordinate.Longitude
             });
             MapIcon1.NormalizedAnchorPoint = new Point(0.5, 1.0);
-            MapIcon1.Title = "Space Needle";
+            MapIcon1.Title = "My Position";
             MapControl1.MapElements.Add(MapIcon1);
         }
 
-        private void AddMapIcon(double latitude, double longitude, string title)
+        private Uri StringToUri(string title)
         {
+            string fruit = title.ToLower();
+            Debug.WriteLine(fruit);
+            string str = String.Format("ms-appx:///Assets/Fruit/{0}.png", fruit);
+            return new Uri(str);
+        }
+
+        private async void AddMapIcon(double latitude, double longitude, string title)
+        {
+            var uri = StringToUri(title);
+            var file = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(uri);
             MapIcon MapIcon1 = new MapIcon();
             //Rectangle rectangle = new Rectangle();
             //rectangle.Width = 10;
             //rectangle.Height = 10;
+            MapIcon1.Image = file;
+            MapIcon1.ZIndex = 1000;
 
             MapIcon1.Location = new Geopoint(new BasicGeoposition()
             {
