@@ -17,6 +17,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)LocationClass.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LocationsController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MathConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\apple.png" />
@@ -25,7 +26,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\cabbage.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\cherry.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\lemon.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\oranges.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\orange.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\pear.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\plum.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\rosemary.png" />

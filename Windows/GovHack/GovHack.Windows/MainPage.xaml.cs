@@ -54,7 +54,7 @@ namespace GovHack
             List<Locations> locations = await locationsController.GetLocations();
 
             AddPins(locations);
-            AddPushpin(new Location(geo.Coordinate.Latitude, geo.Coordinate.Longitude), "Lemon","Hello", DataLayer, "W");
+            
         }
 
         private void AddPins(List<Locations> locations)
@@ -62,14 +62,14 @@ namespace GovHack
       
             foreach (var location in locations)
             {
-                AddPushpin(location.Latitude, location.Longitude, location.Produce, location.Description);
+                AddPushpin(location.Latitude, location.Longitude, location.Produce, location.Description, location.AveragePricePerKilo);
             }
         
         }
 
-        private void AddPushpin(double latitude, double longitude, string title, string description)
+        private void AddPushpin(double latitude, double longitude, string title, string description, double averagePricePerKilo)
         {
-            AddPushpin(new Location(latitude, longitude), title, description, DataLayer, "W");
+            AddPushpin(new Location(latitude, longitude), title, description, DataLayer, averagePricePerKilo);
         }
 
 
@@ -79,18 +79,20 @@ namespace GovHack
         }
 
 
-        public async void AddPushpin(Location latlong, string title, string description, MapLayer layer, string pushpinText=null)
+        public async void AddPushpin(Location latlong, string title, string description, MapLayer layer, double averagePricePerKilo)
         {
             Debug.WriteLine(title);
-            Image img = await StringToImage(title);
-
+            BitmapImage img = await StringToImage(title);
+            ImageBrush brush = new ImageBrush();
+            brush.ImageSource= img;
             var x = new Button
             {
-                Width = 16, Height = 16, Content = img,
+                Width = 48, Height = 48, Background = brush, BorderThickness = new Thickness(0), 
                 Tag = new Metadata()
                 {
                     Title = title,
-                    Description = description
+                    Description = description,
+                    AveragePricePerKilo = averagePricePerKilo
                 }
             };
             x.Tapped += PinTapped;
@@ -115,7 +117,7 @@ namespace GovHack
             //layer.Children.Add(p);
         }
 
-        private async Task<Image> StringToImage(string title)
+        private async Task<BitmapImage> StringToImage(string title)
         {
             string fruit = title.ToLower();
             Debug.WriteLine(fruit);
@@ -123,32 +125,45 @@ namespace GovHack
             Debug.WriteLine(str);
             var uri = new Uri(str);
             StorageFile file;
-            file = await StorageFile.GetFileFromApplicationUriAsync(uri);
 
-            BitmapImage bitmap = new BitmapImage();
-            Image img = new Image();
-            if (file != null)
+            try
             {
+                BitmapImage bitmap = new BitmapImage();
+                Image img = new Image();
+                file = await StorageFile.GetFileFromApplicationUriAsync(uri);
+                if (file == null)
+                {
+                    uri = new Uri("ms-appx:///Assets/Fruit/apple.png");
+                }
+                if (file != null)
+                {
                 bitmap.UriSource = uri;
                 img.Source = bitmap;
-                return img;
+                return bitmap;
+                 }
+
             }
-            else
+            catch
             {
                 return null;
             }
+            
+            return null;
+            
+
         }
 
         public class Metadata
         {
             public string Title { get; set; }
             public string Description { get; set; }
+            public double AveragePricePerKilo { get; set; }
         }
 
 
         private void PinTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            Pushpin p = sender as Pushpin;
+            Button p = sender as Button;
             Metadata m = (Metadata)p.Tag;
 
             //Ensure there is content to be displayed before modifying the infobox control
@@ -164,6 +179,16 @@ namespace GovHack
             {
                 Infobox.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void WeightSlider_OnValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            var sl = sender as Slider;
+            var parent = sl.Parent as StackPanel;
+            var par = parent.Parent as Grid;
+            var tag = par.DataContext as Metadata;
+            var val = e.NewValue;
+            Result.Text = String.Format("You saved ${0}!", val*tag.AveragePricePerKilo);
         }
     }
 }
