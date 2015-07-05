@@ -1,0 +1,117 @@
+{
+    
+    Locations: [
+        {
+            "Produce": "Lemon",
+            "AveragePricePerKilo": 5,
+            "Latitude": -36.85459146,
+            "Longitude": 174.7814727,
+            "Description": "Scarborough Park lemon tree. Lemon tree right next to the bench - plenty of lemons from mid June - mid July."
+        },
+        {
+            "Produce": "Lemon",
+            "AveragePricePerKilo": 5,
+            "Latitude": -36.85359562,
+            "Longitude": 174.7517753,
+            "Description": "Auckland Central: Lemon Tree on the grass verge. Fruits around July. "
+        },
+        {
+            "Produce": "Orange",
+            "AveragePricePerKilo": 3.02,
+            "Latitude": -36.85290883,
+            "Longitude": 174.762708,
+            "Description": "Aotea Square Orange Grove: Auckland Council bring an orchard of fruiting orange trees in June."
+        },
+        {
+            "Produce": "Orange",
+            "AveragePricePerKilo": 3.02,
+            "Latitude": -36.85771626,
+            "Longitude": 174.7507882,
+            "Description": "Western Park: A giant orange tree sits at the top of Western Park gully. Usually fruits bountifully."
+        },
+        {
+            "Produce": "Plum",
+            "AveragePricePerKilo": 7.25,
+            "Latitude": -36.85998252,
+            "Longitude": 174.7636199,
+            "Description": "Deep in the Simons Street Cemetery forest a gigantic ancient Plum tree climbs above the surrounding canopy."
+        },
+        {
+            "Produce": "Blackberry",
+            "AveragePricePerKilo": 10,
+            "Latitude": -36.84940607,
+            "Longitude": 174.7869766,
+            "Description": "Beneath the civilised Parnell Rose Garden lies an untamable blackberry patch."
+        },
+        {
+            "Produce": "Pear",
+            "AveragePricePerKilo": 3.61,
+            "Latitude": -36.84784352,
+            "Longitude": 174.7555196,
+            "Description": "A row of heritage pear trees beside Victoria Street."
+        },
+        {
+            "Produce": "Pear",
+            "AveragePricePerKilo": 3.61,
+            "Latitude": -36.8508484,
+            "Longitude": 174.7736621,
+            "Description": "Growing wild opposite the Churchill St Police Dept."
+        },
+        {
+            "Produce": "Rosemary",
+            "AveragePricePerKilo": 100,
+            "Latitude": -36.85347543,
+            "Longitude": 174.7721279,
+            "Description": "Grafton Cycle Gullyway Rosemary. It's pretty tough."
+        },
+        {
+            "Produce": "Rosemary",
+            "AveragePricePerKilo": 100,
+            "Latitude": -36.85277147,
+            "Longitude": 174.7498441,
+            "Description": "At the entrance to Hairy Dovey Reserve."
+        },
+        {
+            "Produce": "Apple",
+            "AveragePricePerKilo": 2.9,
+            "Latitude": -36.85599935,
+            "Longitude": 174.7604871,
+            "Description": "At the top right bank of Myers Canyon. Fruits all year round."
+        },
+        {
+            "Produce": "Apple",
+            "AveragePricePerKilo": 2.9,
+            "Latitude": -36.85510655,
+            "Longitude": 174.7532344,
+            "Description": "Bottom of Western Park can't miss it, apple tree orchard for everyone. Restrain to one apple each week please."
+        },
+        {
+            "Produce": "Cabbage",
+            "AveragePricePerKilo": 1.7,
+            "Latitude": -36.85043631,
+            "Longitude": 174.7683889,
+            "Description": "Someone has apparently ripped up the carefully laid flower beds and replaced them with a cabbage patch. #ecoterrorists"
+        },
+        {
+            "Produce": "Cherry",
+            "AveragePricePerKilo": 20,
+            "Latitude": -36.85661745,
+            "Longitude": 174.7711623,
+            "Description": "Cherry Tree or \"lovers walk\" where couples picnic and selfie in early spring under the cherry blossoms. Popular with families at Christmas time when the berries ripen."
+        },
+        {
+            "Produce": "Avocado",
+            "AveragePricePerKilo": 8.7,
+            "Latitude": -36.83996158,
+            "Longitude": 174.7544789,
+            "Description": "Right at the end of Silo Park a huge avocado tree spreads out over the water. "
+        },
+        {
+            "Produce": "Orange",
+            "AveragePricePerKilo": 3.02,
+            "Latitude": -36.984589,
+            "Longitude": 174.881089,
+            "Description": "AUT South's local mandarin tree!"
+        }
+    ]
+}
