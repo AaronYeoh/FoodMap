@@ -17,7 +17,7 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" TextWrapping="NoWrap" Text="Map control"
+            <TextBlock Grid.Row="0" TextWrapping="NoWrap" Text="GrocerFree"
                    FontSize="36" Margin="8,0,0,16"/>
 
             <Maps:Map Grid.Row="1" x:Name="MapControl" Credentials="Am9aWI0BQRYsuWa-IwWQqNFljkK30MIovzXOYKd0_t2NhYjdYvmszvy8czHjW47H" HorizontalContentAlignment="Stretch" 
@@ -41,10 +41,10 @@
                                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" MaxHeight="60">
                                     <TextBlock Text="{Binding Description}" FontSize="16" Width="290" TextWrapping="Wrap" Height="Auto"/>
                                 </ScrollViewer>
-                                <TextBlock ><Run Text="$"></Run><Run Text="{Binding AveragePricePerKilo}"></Run><Run Text=" per kg."></Run></TextBlock>
+                                <TextBlock ><Run Text="Average price: $"></Run><Run Text="{Binding AveragePricePerKilo}"></Run><Run Text=" per kg."></Run></TextBlock>
                                 <TextBlock>kg taken:</TextBlock>
-                                <Slider x:Name="WeightSlider" Minimum="0" Maximum="20" SnapsTo="StepValues" StepFrequency="0.1" ValueChanged="WeightSlider_OnValueChanged"></Slider>
-                                <TextBlock x:Name="Result"/>
+                                <Slider x:Name="WeightSlider" Minimum="0" Maximum="20" SnapsTo="StepValues" TickFrequency="0.1"  StepFrequency="0.1" ValueChanged="WeightSlider_OnValueChanged"></Slider>
+                                <TextBlock FontSize="15" x:Name="Result"/>
                             </StackPanel>
                         </Grid>
                     </Maps:MapLayer>

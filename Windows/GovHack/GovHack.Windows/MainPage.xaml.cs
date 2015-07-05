@@ -188,7 +188,9 @@ namespace GovHack
             var par = parent.Parent as Grid;
             var tag = par.DataContext as Metadata;
             var val = e.NewValue;
-            Result.Text = String.Format("You saved ${0}!", val*tag.AveragePricePerKilo);
+            var val2 = Math.Round(val, 2);
+            var val3 = Math.Round(tag.AveragePricePerKilo*val2, 2);
+            Result.Text = String.Format("You saved ${0}", val3);
         }
     }
 }
