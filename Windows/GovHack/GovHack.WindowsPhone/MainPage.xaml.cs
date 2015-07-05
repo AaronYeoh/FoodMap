@@ -95,9 +95,9 @@ namespace GovHack
         private void AddMapIcon(double latitude, double longitude, string title)
         {
             MapIcon MapIcon1 = new MapIcon();
-            Rectangle rectangle = new Rectangle();
-            rectangle.Width = 10;
-            rectangle.Height = 10;
+            //Rectangle rectangle = new Rectangle();
+            //rectangle.Width = 10;
+            //rectangle.Height = 10;
 
             MapIcon1.Location = new Geopoint(new BasicGeoposition()
             {

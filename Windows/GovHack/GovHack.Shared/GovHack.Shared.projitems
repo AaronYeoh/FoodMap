@@ -24,7 +24,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\blackberry.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\cabbage.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\cherry.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\Lemon.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\lemon.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\oranges.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\pear.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Fruit\plum.png" />

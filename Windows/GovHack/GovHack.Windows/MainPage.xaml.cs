@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -13,6 +15,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Devices.Geolocation;
+using Windows.Storage;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Shapes;
 using Bing.Maps;
 
 
@@ -25,6 +30,7 @@ namespace GovHack
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        LocationsController locationsController = new LocationsController();
         public MainPage()
         {
             this.InitializeComponent();
@@ -44,13 +50,26 @@ namespace GovHack
 
             MapLayer.SetPosition(pushpin, new Location(geo.Coordinate.Latitude, geo.Coordinate.Longitude));
 
-            AddPins();
-            AddPushpin(new Location(geo.Coordinate.Latitude, geo.Coordinate.Longitude), "Seattle","Hello", DataLayer, "W");
+
+            List<Locations> locations = await locationsController.GetLocations();
+
+            AddPins(locations);
+            AddPushpin(new Location(geo.Coordinate.Latitude, geo.Coordinate.Longitude), "Lemon","Hello", DataLayer, "W");
         }
 
-        private void AddPins()
+        private void AddPins(List<Locations> locations)
         {
+      
+            foreach (var location in locations)
+            {
+                AddPushpin(location.Latitude, location.Longitude, location.Produce, location.Description);
+            }
+        
+        }
 
+        private void AddPushpin(double latitude, double longitude, string title, string description)
+        {
+            AddPushpin(new Location(latitude, longitude), title, description, DataLayer, "W");
         }
 
 
@@ -60,27 +79,64 @@ namespace GovHack
         }
 
 
-        public void AddPushpin(Location latlong, string title, string description, MapLayer layer, string pushpinText=null)
+        public async void AddPushpin(Location latlong, string title, string description, MapLayer layer, string pushpinText=null)
         {
-            Pushpin p = new Pushpin()
+            Debug.WriteLine(title);
+            Image img = await StringToImage(title);
+
+            var x = new Button
             {
+                Width = 16, Height = 16, Content = img,
                 Tag = new Metadata()
                 {
                     Title = title,
                     Description = description
                 }
             };
+            x.Tapped += PinTapped;
 
-            MapLayer.SetPosition(p, latlong);
+            MapLayer.SetPosition(x, latlong);
 
-            if (pushpinText != null)
+            layer.Children.Add(x);
+            //Pushpin p = new Pushpin()
+            //{
+                
+            //};
+           
+            //MapLayer.SetPosition(p, latlong);
+
+            //if (pushpinText != null)
+            //{
+            //    p.Text = pushpinText;
+            //}
+
+            //p.Tapped += PinTapped;
+
+            //layer.Children.Add(p);
+        }
+
+        private async Task<Image> StringToImage(string title)
+        {
+            string fruit = title.ToLower();
+            Debug.WriteLine(fruit);
+            string str = String.Format("ms-appx:///Assets/Fruit/{0}.png", fruit);
+            Debug.WriteLine(str);
+            var uri = new Uri(str);
+            StorageFile file;
+            file = await StorageFile.GetFileFromApplicationUriAsync(uri);
+
+            BitmapImage bitmap = new BitmapImage();
+            Image img = new Image();
+            if (file != null)
             {
-                p.Text = pushpinText;
+                bitmap.UriSource = uri;
+                img.Source = bitmap;
+                return img;
             }
-
-            p.Tapped += PinTapped;
-
-            layer.Children.Add(p);
+            else
+            {
+                return null;
+            }
         }
 
         public class Metadata
