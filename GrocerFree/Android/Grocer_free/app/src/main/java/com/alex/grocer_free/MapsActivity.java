@@ -1,13 +1,20 @@
 package com.alex.grocer_free;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -15,6 +22,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -32,9 +40,57 @@ public class MapsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
-        //mMap.setMyLocationEnabled(true);
+        mMap.setMyLocationEnabled(true);
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                //TODO query db for latlng position and return info in drawerfragment
+                addDrawerFragment();
+                return false;
+            }
+        });
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
-        addDrawerFragment();
+            //Add item to map
+            @Override
+            public void onMapClick(final LatLng latLng) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                builder.setTitle("Add new marker");
+                LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View add_marker = inflater.inflate(R.layout.add_marker, null);
+
+                builder.setView(add_marker);
+                AlertDialog dialog = builder.create();
+
+                final Spinner spinner = (Spinner) add_marker.findViewById(R.id.item_spinner);
+
+                final EditText item_description = (EditText) add_marker.findViewById(R.id.item_description);
+                item_description.setTextColor(Color.BLACK);
+
+                dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Create",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                String desc = item_description.getText().toString();
+                                String item = spinner.getSelectedItem().toString();
+
+                                addItemToMap(latLng, item, desc);
+                            }
+                        });
+                dialog.show();
+                mMap.setOnMapClickListener(null);
+            }
+        });
+        //addDrawerFragment();
     }
 
     @Override
@@ -115,5 +171,15 @@ public class MapsActivity extends FragmentActivity {
 
         }
 
+    }
+
+    public void addItemToMap(LatLng latLng, String title, String description){
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title(title);
+        //TODO custom drawable
+        mMap.addMarker(markerOptions);
+        //TODO insert into db
     }
 }
