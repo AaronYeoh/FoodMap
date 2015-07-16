@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical" android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:paddingTop="10dp"
-android:paddingLeft="10dp"
-android:paddingRight="10dp"
-android:paddingBottom="10dp">
-
-<Spinner
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/item_spinner"
-    android:popupBackground="#FFFFFF"
-    android:entries="@array/spinnerItems"
-    >
-</Spinner>
+    android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp">
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_spinner"
+        android:background="#ffffff"
+        android:popupBackground="#ffffff">
+    </Spinner>
 
-<EditText
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    android:inputType="textMultiLine"
-    android:lines="8"
-    android:minLines="6"
-    android:hint="Enter any additional information"
 
-    android:maxLines="10"
-    android:id="@+id/item_description">
-</EditText>
+
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:minLines="6"
+        android:hint="Enter any additional information"
+        android:textColorHint="#000000"
+        android:textColor="#000000"
+        android:maxLines="10"
+        android:id="@+id/item_description">
+    </EditText>
 
 </LinearLayout>

@@ -27,19 +27,29 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
+import fr.ganfra.materialspinner.MaterialSpinner;
+
 public class MapsActivity extends FragmentActivity {
     Location getLastLocation;
     double currentLongitude;
     double currentLatitude;
     LatLng currentLocation;
     LocationManager locationManager;
-    public GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    public GoogleMap mMap;
+
+    LocalDatabase db;
+
+    String[] item_list = new String[] {"lemon", "apple", "orange"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        db = new LocalDatabase(this);
         setUpMapIfNeeded();
+
         mMap.setMyLocationEnabled(true);
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -56,7 +66,7 @@ public class MapsActivity extends FragmentActivity {
             public void onMapClick(final LatLng latLng) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
-                builder.setTitle("Add new marker");
+                //builder.setTitle("Add new marker");
                 LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View add_marker = inflater.inflate(R.layout.add_marker, null);
 
@@ -64,6 +74,8 @@ public class MapsActivity extends FragmentActivity {
                 AlertDialog dialog = builder.create();
 
                 final Spinner spinner = (Spinner) add_marker.findViewById(R.id.item_spinner);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item, item_list);
+                spinner.setAdapter(adapter);
 
                 final EditText item_description = (EditText) add_marker.findViewById(R.id.item_description);
                 item_description.setTextColor(Color.BLACK);
@@ -87,7 +99,7 @@ public class MapsActivity extends FragmentActivity {
                             }
                         });
                 dialog.show();
-                mMap.setOnMapClickListener(null);
+                //mMap.setOnMapClickListener(null);
             }
         });
         //addDrawerFragment();
@@ -146,7 +158,21 @@ public class MapsActivity extends FragmentActivity {
         mMap.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentLocation, 17);
-        mMap.animateCamera(cameraUpdate);;
+        mMap.animateCamera(cameraUpdate);
+
+        populateMapFromDatabase();
+
+    }
+
+    private void populateMapFromDatabase() {
+        ArrayList<Item> items = db.getAllItems();
+        for(Item item : items){
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.title(item.getItemType());
+            markerOptions.position(new LatLng(item.getLat(), item.getLng()));
+            markerOptions.snippet(item.getDesc());
+            mMap.addMarker(markerOptions);
+        }
 
     }
 
@@ -175,11 +201,20 @@ public class MapsActivity extends FragmentActivity {
 
     public void addItemToMap(LatLng latLng, String title, String description){
 
+        Item item = new Item();
+        item.setLat(latLng.latitude);
+        item.setLng(latLng.longitude);
+        item.setItemType(title);
+        item.setDesc(description);
+
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title(title);
         //TODO custom drawable
         mMap.addMarker(markerOptions);
         //TODO insert into db
+
+        db.insertItem(item);
+
     }
 }
