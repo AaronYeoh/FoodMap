@@ -14,6 +14,11 @@ public class DrawerFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Bundle bundle = this.getArguments();
+        double lat = bundle.getDouble("lat");
+        double lng = bundle.getDouble("lng");
+
+
         return inflater.inflate(R.layout.drawer_fragment, container, false);
     }
 }

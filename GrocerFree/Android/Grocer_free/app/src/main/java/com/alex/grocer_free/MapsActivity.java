@@ -55,7 +55,20 @@ public class MapsActivity extends FragmentActivity {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 //TODO query db for latlng position and return info in drawerfragment
-                addDrawerFragment();
+
+
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+
+                Bundle bundle = new Bundle();
+                bundle.putDouble("lat", marker.getPosition().latitude);
+                bundle.putDouble("lng", marker.getPosition().longitude);
+
+                DrawerFragment drawerFragment = new DrawerFragment();
+                drawerFragment.setArguments(bundle);
+
+                transaction.add(R.id.drawer_container, drawerFragment).commit();
+                transaction.commit();
                 return false;
             }
         });
