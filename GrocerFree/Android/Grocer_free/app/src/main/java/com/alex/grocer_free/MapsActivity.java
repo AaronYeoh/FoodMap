@@ -3,35 +3,40 @@ package com.alex.grocer_free;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.directions.route.Route;
+import com.directions.route.Routing;
+import com.directions.route.RoutingListener;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.Polyline;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
-import fr.ganfra.materialspinner.MaterialSpinner;
-
-public class MapsActivity extends FragmentActivity {
+public class MapsActivity extends FragmentActivity{
     Location getLastLocation;
     double currentLongitude;
     double currentLatitude;
@@ -40,6 +45,7 @@ public class MapsActivity extends FragmentActivity {
     public GoogleMap mMap;
 
     LocalDatabase db;
+    Polyline polyline;
 
     String[] item_list = new String[] {"lemon", "apple", "orange"};
 
@@ -56,6 +62,38 @@ public class MapsActivity extends FragmentActivity {
             public boolean onMarkerClick(Marker marker) {
                 //TODO query db for latlng position and return info in drawerfragment
 
+                marker.setSnippet(null);
+                final LatLng start = currentLocation;
+                final LatLng end = marker.getPosition();
+
+                final Routing routing = new Routing(Routing.TravelMode.WALKING);
+
+                RoutingListener routingListener = new RoutingListener() {
+                    @Override
+                    public void onRoutingFailure() {
+
+                    }
+
+                    @Override
+                    public void onRoutingStart() {
+
+                    }
+
+                    @Override
+                    public void onRoutingSuccess(PolylineOptions polylineOptions, Route route) {
+
+                        if(polyline!=null)
+                            polyline.remove();
+                        polyline=null;
+                        PolylineOptions polyOptions = new PolylineOptions();
+                        polyOptions.color(Color.BLACK);
+                        polyOptions.width(10);
+                        polyOptions.addAll(polylineOptions.getPoints());
+                        polyline=mMap.addPolyline(polyOptions);
+                    }
+                };
+                routing.registerListener(routingListener);
+                routing.execute(start, end);
 
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
@@ -63,12 +101,13 @@ public class MapsActivity extends FragmentActivity {
                 Bundle bundle = new Bundle();
                 bundle.putDouble("lat", marker.getPosition().latitude);
                 bundle.putDouble("lng", marker.getPosition().longitude);
+                bundle.putDouble("currentLat", currentLatitude);
+                bundle.putDouble("currentLng", currentLongitude);
 
                 DrawerFragment drawerFragment = new DrawerFragment();
                 drawerFragment.setArguments(bundle);
 
                 transaction.add(R.id.drawer_container, drawerFragment).commit();
-                transaction.commit();
                 return false;
             }
         });
@@ -108,7 +147,7 @@ public class MapsActivity extends FragmentActivity {
                                 String desc = item_description.getText().toString();
                                 String item = spinner.getSelectedItem().toString();
 
-                                addItemToMap(latLng, item, desc);
+                                addNewItemToMap(latLng, item, desc);
                             }
                         });
                 dialog.show();
@@ -184,6 +223,7 @@ public class MapsActivity extends FragmentActivity {
             markerOptions.title(item.getItemType());
             markerOptions.position(new LatLng(item.getLat(), item.getLng()));
             markerOptions.snippet(item.getDesc());
+            markerOptions.icon(chooseMarkerIcon(item.getItemType()));
             mMap.addMarker(markerOptions);
         }
 
@@ -212,7 +252,7 @@ public class MapsActivity extends FragmentActivity {
 
     }
 
-    public void addItemToMap(LatLng latLng, String title, String description){
+    public void addNewItemToMap(LatLng latLng, String title, String description){
 
         Item item = new Item();
         item.setLat(latLng.latitude);
@@ -224,10 +264,21 @@ public class MapsActivity extends FragmentActivity {
         markerOptions.position(latLng);
         markerOptions.title(title);
         //TODO custom drawable
+        markerOptions.icon(chooseMarkerIcon(title));
         mMap.addMarker(markerOptions);
         //TODO insert into db
 
         db.insertItem(item);
 
+    }
+
+    public BitmapDescriptor chooseMarkerIcon(String title){
+
+        int id = getResources().getIdentifier(title, "drawable", getPackageName());
+        Drawable drawable = getResources().getDrawable(id);
+
+        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(bitmap);
+        return icon;
     }
 }

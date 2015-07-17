@@ -18,6 +18,9 @@ public class DrawerFragment extends Fragment {
         double lat = bundle.getDouble("lat");
         double lng = bundle.getDouble("lng");
 
+        double currentLat = bundle.getDouble("currentLat");
+        double currentLng = bundle.getDouble("currentLng");
+
 
         return inflater.inflate(R.layout.drawer_fragment, container, false);
     }
