@@ -13,13 +13,14 @@ import java.util.ArrayList;
  */
 public class LocalDatabase extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "locationdb.db";
-    private static final String TABLE_LOCATION = "locations";
+    private static final String DATABASE_NAME = "location2db.db";
+    private static final String TABLE_LOCATION = "locations2";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_LAT_ADDRESS = "lat";
     private static final String COLUMN_LNG_ADDRESS = "lng";
     private static final String COLUMN_ITEM_TYPE = "item_type";
     private static final String COLUMN_DESCRIPTION = "description";
+    private static final String COLUMN_IMAGE = "image";
 
     public LocalDatabase(Context context){
         super(context, DATABASE_NAME, null, 1);
@@ -32,7 +33,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 COLUMN_LAT_ADDRESS + " DOUBLE, " +
                 COLUMN_LNG_ADDRESS + " DOUBLE, " +
                 COLUMN_ITEM_TYPE + " TEXT, " +
-                COLUMN_DESCRIPTION + " TEXT" +
+                COLUMN_DESCRIPTION + " TEXT, " +
+                COLUMN_IMAGE + " BLOB" +
                 ")");
     }
 
@@ -54,6 +56,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
         cv.put(COLUMN_LNG_ADDRESS, markerItem.getLng());
         cv.put(COLUMN_ITEM_TYPE, markerItem.getItemType());
         cv.put(COLUMN_DESCRIPTION, markerItem.getDesc());
+        cv.put(COLUMN_IMAGE, markerItem.getImage());
 
         long rowId = db.insertOrThrow(TABLE_LOCATION, null, cv);
         db.close();
@@ -74,6 +77,11 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 item.setLng(c.getDouble(2));
                 item.setItemType(c.getString(3));
                 item.setDesc(c.getString(4));
+                if(c.isNull(5)){
+
+                } else {
+                    item.setImage(c.getBlob(5));
+                }
                 itemList.add(item);
             } while(c.moveToNext());
         }
@@ -81,5 +89,22 @@ public class LocalDatabase extends SQLiteOpenHelper {
             c.close();
 
         return itemList;
+    }
+
+    public Item getItemByLatLng(double lat, double lng){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_LOCATION + " WHERE " +
+                "(" + "(" + COLUMN_LAT_ADDRESS + "=" + lat + ") AND " +
+                        "(" + COLUMN_LNG_ADDRESS + "=" + lng + ")" +
+                ")";
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+
+        Item item = new Item();
+        item.setDesc(cursor.getString(4));
+        item.setItemType(cursor.getString(3));
+        item.setImage(cursor.getBlob(5));
+        cursor.close();
+        return item;
     }
 }

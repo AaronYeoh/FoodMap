@@ -1,5 +1,7 @@
 package com.alex.grocer_free;
 
+import java.sql.Array;
+
 /**
  * Created by alex on 16/07/15.
  */
@@ -9,7 +11,7 @@ public class Item {
     private double lat;
     private double lng;
     private String desc;
-
+    private byte[] image;
 
     public Item(){
     }
@@ -59,5 +61,13 @@ public class Item {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

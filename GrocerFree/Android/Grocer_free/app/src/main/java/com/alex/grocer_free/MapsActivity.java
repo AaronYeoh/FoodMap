@@ -3,19 +3,26 @@ package com.alex.grocer_free;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.Image;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.directions.route.Route;
@@ -33,6 +40,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.Polyline;
 
+import java.io.ByteArrayOutputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
@@ -49,11 +57,16 @@ public class MapsActivity extends FragmentActivity{
 
     String[] item_list = new String[] {"lemon", "apple", "orange"};
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    ImageView add_image;
+    ImageView imageOf;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         db = new LocalDatabase(this);
+        this.getActionBar().hide();
         setUpMapIfNeeded();
 
         mMap.setMyLocationEnabled(true);
@@ -129,6 +142,17 @@ public class MapsActivity extends FragmentActivity{
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item, item_list);
                 spinner.setAdapter(adapter);
 
+                final ImageButton addImage = (ImageButton) add_marker.findViewById(R.id.addImage);
+                addImage.setImageResource(R.drawable.ic_image_black_24dp);
+
+                imageOf = (ImageView) add_marker.findViewById(R.id.imageOf);
+                addImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dispatchTakePictureIntent();
+                    }
+                });
+
                 final EditText item_description = (EditText) add_marker.findViewById(R.id.item_description);
                 item_description.setTextColor(Color.BLACK);
 
@@ -147,14 +171,18 @@ public class MapsActivity extends FragmentActivity{
                                 String desc = item_description.getText().toString();
                                 String item = spinner.getSelectedItem().toString();
 
+                                if(imageOf != null){
+                                    Bitmap bitmap = ((BitmapDrawable)imageOf.getDrawable()).getBitmap();
+                                    byte[] imgByteArray = getBytes(bitmap);
+                                    addNewItemToMap(latLng, item, desc, imgByteArray);
+                                }
+
                                 addNewItemToMap(latLng, item, desc);
                             }
                         });
                 dialog.show();
-                //mMap.setOnMapClickListener(null);
             }
         });
-        //addDrawerFragment();
     }
 
     @Override
@@ -272,6 +300,27 @@ public class MapsActivity extends FragmentActivity{
 
     }
 
+    public void addNewItemToMap(LatLng latLng, String title, String description, byte[] byteArray){
+
+        Item item = new Item();
+        item.setLat(latLng.latitude);
+        item.setLng(latLng.longitude);
+        item.setItemType(title);
+        item.setDesc(description);
+        item.setImage(byteArray);
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title(title);
+        //TODO custom drawable
+        markerOptions.icon(chooseMarkerIcon(title));
+        mMap.addMarker(markerOptions);
+        //TODO insert into db
+
+        db.insertItem(item);
+
+    }
+
     public BitmapDescriptor chooseMarkerIcon(String title){
 
         int id = getResources().getIdentifier(title, "drawable", getPackageName());
@@ -281,4 +330,30 @@ public class MapsActivity extends FragmentActivity{
         BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(bitmap);
         return icon;
     }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageOf.setImageBitmap(imageBitmap);
+
+        }
+    }
+
+    public static byte[] getBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        return stream.toByteArray();
+    }
+
+    // convert from byte array to bitmap
+
 }

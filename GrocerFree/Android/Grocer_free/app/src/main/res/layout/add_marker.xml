@@ -8,16 +8,33 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingBottom="10dp">
-    <Spinner
-        android:layout_width="match_parent"
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/item_spinner"
-        android:background="#ffffff"
-        android:popupBackground="#ffffff">
-    </Spinner>
+        android:orientation="horizontal">
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_spinner"
 
 
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+        </Spinner>
 
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addImage"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageOf"/>
 
     <EditText
         android:layout_height="wrap_content"
