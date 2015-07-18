@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toolbar;
 
 import com.directions.route.Route;
 import com.directions.route.Routing;
@@ -66,7 +67,7 @@ public class MapsActivity extends FragmentActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         db = new LocalDatabase(this);
-        this.getActionBar().hide();
+
         setUpMapIfNeeded();
 
         mMap.setMyLocationEnabled(true);
@@ -95,14 +96,14 @@ public class MapsActivity extends FragmentActivity{
                     @Override
                     public void onRoutingSuccess(PolylineOptions polylineOptions, Route route) {
 
-                        if(polyline!=null)
+                        if (polyline != null)
                             polyline.remove();
-                        polyline=null;
+                        polyline = null;
                         PolylineOptions polyOptions = new PolylineOptions();
                         polyOptions.color(Color.BLACK);
                         polyOptions.width(10);
                         polyOptions.addAll(polylineOptions.getPoints());
-                        polyline=mMap.addPolyline(polyOptions);
+                        polyline = mMap.addPolyline(polyOptions);
                     }
                 };
                 routing.registerListener(routingListener);
@@ -171,8 +172,8 @@ public class MapsActivity extends FragmentActivity{
                                 String desc = item_description.getText().toString();
                                 String item = spinner.getSelectedItem().toString();
 
-                                if(imageOf != null){
-                                    Bitmap bitmap = ((BitmapDrawable)imageOf.getDrawable()).getBitmap();
+                                if (imageOf != null) {
+                                    Bitmap bitmap = ((BitmapDrawable) imageOf.getDrawable()).getBitmap();
                                     byte[] imgByteArray = getBytes(bitmap);
                                     addNewItemToMap(latLng, item, desc, imgByteArray);
                                 }
@@ -183,6 +184,7 @@ public class MapsActivity extends FragmentActivity{
                 dialog.show();
             }
         });
+
     }
 
     @Override

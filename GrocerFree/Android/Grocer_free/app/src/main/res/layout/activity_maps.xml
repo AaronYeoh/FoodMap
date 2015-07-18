@@ -1,15 +1,60 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:id="@+id/map" tools:context=".MapsActivity"
-    android:name="com.google.android.gms.maps.SupportMapFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/drawer_container"
-        android:layout_width="500dp"
-        android:layout_height="match_parent">
+        <fragment
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/map" tools:context=".MapsActivity"
+            android:name="com.google.android.gms.maps.SupportMapFragment">
+
+            <FrameLayout
+                android:id="@+id/drawer_container"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content">
+            </FrameLayout>
+        </fragment>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/lower_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?android:attr/actionBarSize"
+            android:background="#000000"
+            android:layout_alignParentBottom="true"
+            android:visibility="visible">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_home_white_18dp"
 
 
-    </FrameLayout>
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_settings_white_18dp"
+                android:paddingLeft="30dp"
+                />
 
-</fragment>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_location_on_white_18dp"
+                android:layout_gravity="center"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search_white_18dp"
+                android:paddingLeft="100dp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_account_box_white_18dp"
+                android:layout_gravity="right"
+                />
+        </android.support.v7.widget.Toolbar>
+
+</RelativeLayout>
 

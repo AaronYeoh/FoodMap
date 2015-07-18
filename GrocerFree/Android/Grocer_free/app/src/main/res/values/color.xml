@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="my_spinner_text_color">#808080</color>
+    <color name="primary">#324238</color>
+    <color name="primary_dark">#324238</color>
+    <color name="accent">#599034</color>
+
+
 </resources>
