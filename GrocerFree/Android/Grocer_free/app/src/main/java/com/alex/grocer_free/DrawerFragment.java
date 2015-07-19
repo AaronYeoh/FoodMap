@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -26,26 +28,31 @@ public class DrawerFragment extends Fragment {
         db = new LocalDatabase(context);
 
         View frag = inflater.inflate(R.layout.drawer_fragment, container, false);
+
+        TextView description = (TextView) frag.findViewById(R.id.description);
+        ListView listView = (ListView) frag.findViewById(R.id.update_list);
         ImageView imageView = (ImageView) frag.findViewById(R.id.image);
 
         Bundle bundle = this.getArguments();
         double lat = bundle.getDouble("lat");
         double lng = bundle.getDouble("lng");
 
-        double currentLat = bundle.getDouble("currentLat");
-        double currentLng = bundle.getDouble("currentLng");
+        Item item = db.getItemByLatLng(lat, lng);
 
-        Bitmap image = getImage(new LatLng(lat, lng));
-        imageView.setImageBitmap(image);
+        //Set description for item
+        description.setText(item.getDesc());
+
+        //Set listview of updates for item
+        //TODO custom adapter and all that
+
+        //Set image of item
+        imageView.setImageBitmap(
+                getImage(item.getImage()));
+
         return frag;
         //return inflater.inflate(R.layout.drawer_fragment, container, false);
     }
 
-    public Bitmap getImage(LatLng itemLatLng) {
-        Item item = db.getItemByLatLng(itemLatLng.latitude, itemLatLng.longitude);
-        Bitmap image = getImage(item.getImage());
-        return image;
-    }
 
     public static Bitmap getImage(byte[] image) {
         return BitmapFactory.decodeByteArray(image, 0, image.length);
