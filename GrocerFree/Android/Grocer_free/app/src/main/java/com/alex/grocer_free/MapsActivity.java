@@ -1,5 +1,6 @@
 package com.alex.grocer_free;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,6 +24,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toolbar;
 
@@ -66,6 +69,7 @@ public class MapsActivity extends FragmentActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        getActionBar().setTitle("");
         db = new LocalDatabase(this);
 
         setUpMapIfNeeded();
@@ -182,6 +186,43 @@ public class MapsActivity extends FragmentActivity{
                             }
                         });
                 dialog.show();
+            }
+        });
+
+        LinearLayout toolbar = (LinearLayout) findViewById(R.id.toolbar);
+        RelativeLayout home = (RelativeLayout) toolbar.findViewById(R.id.home);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setBackgroundColor(getResources().getColor(R.color.accent));
+            }
+        });
+        RelativeLayout settings = (RelativeLayout) toolbar.findViewById(R.id.settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setBackgroundColor(getResources().getColor(R.color.accent));
+            }
+        });
+        RelativeLayout point = (RelativeLayout) toolbar.findViewById(R.id.point);
+        point.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setBackgroundColor(getResources().getColor(R.color.accent));
+            }
+        });
+        RelativeLayout search = (RelativeLayout) toolbar.findViewById(R.id.search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setBackgroundColor(getResources().getColor(R.color.accent));
+            }
+        });
+        RelativeLayout profile = (RelativeLayout) toolbar.findViewById(R.id.profile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setBackgroundColor(getResources().getColor(R.color.accent));
             }
         });
 
