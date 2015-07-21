@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,9 +59,9 @@ public class DrawerFragment extends Fragment {
 
         //Set listview of updates for item
         //TODO custom adapter and all that
-        //List<String> updateItems = (item.getDesc());
-        //UpdateListAdapter adapter = new UpdateListAdapter(this, R.layout.update_list_row);
-        //listView.setAdapter(adapter);
+        ArrayList<String> updateItems = getUpdates(item.getDesc());
+        UpdateListAdapter adapter = new UpdateListAdapter(context, R.layout.update_list_row, updateItems);
+        listView.setAdapter(adapter);
 
         //Set image of item
         imageView.setImageBitmap(
@@ -76,6 +77,14 @@ public class DrawerFragment extends Fragment {
 
     public static Bitmap getImage(byte[] image) {
         return BitmapFactory.decodeByteArray(image, 0, image.length);
+    }
+
+    public ArrayList getUpdates(String desc){
+        ArrayList updateList = new ArrayList();
+        for(String update : desc.split("###")){
+            updateList.add(update);
+        }
+        return updateList;
     }
 
 }
