@@ -69,7 +69,7 @@ public class MapsActivity extends FragmentActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        getActionBar().setTitle("");
+        getActionBar().hide();
         db = new LocalDatabase(this);
 
         setUpMapIfNeeded();

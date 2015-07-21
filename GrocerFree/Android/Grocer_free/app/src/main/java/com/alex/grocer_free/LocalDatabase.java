@@ -6,7 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by alex on 16/07/15.
@@ -55,7 +60,11 @@ public class LocalDatabase extends SQLiteOpenHelper {
         cv.put(COLUMN_LAT_ADDRESS, markerItem.getLat());
         cv.put(COLUMN_LNG_ADDRESS, markerItem.getLng());
         cv.put(COLUMN_ITEM_TYPE, markerItem.getItemType());
-        cv.put(COLUMN_DESCRIPTION, markerItem.getDesc());
+
+
+
+
+        cv.put(COLUMN_DESCRIPTION, markerItem.getDesc() + "," + getCurrentDate());
         cv.put(COLUMN_IMAGE, markerItem.getImage());
 
         long rowId = db.insertOrThrow(TABLE_LOCATION, null, cv);
@@ -106,5 +115,31 @@ public class LocalDatabase extends SQLiteOpenHelper {
         item.setImage(cursor.getBlob(5));
         cursor.close();
         return item;
+    }
+
+
+    public void updateItem(LatLng position, String update){
+
+        update = update + "," + getCurrentDate();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Item item = getItemByLatLng(position.latitude, position.longitude);
+
+        item.setDesc(item.getDesc().concat("###" + update));
+
+        String query = "(" + COLUMN_LAT_ADDRESS + "=" + position.latitude + ") AND " +
+                "(" + COLUMN_LNG_ADDRESS + "=" + position.longitude + ")";
+
+
+        ContentValues args = new ContentValues();
+        args.put(COLUMN_DESCRIPTION, item.getDesc());
+        db.update(TABLE_LOCATION, args, query, null);
+    }
+
+    private String getCurrentDate(){
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c.getTime());
+        return formattedDate;
     }
 }
