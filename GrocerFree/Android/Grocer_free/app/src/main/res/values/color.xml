@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="my_spinner_text_color">#808080</color>
-    <color name="primary">#324238</color>
+
+    <color name="primary">#599034</color>
     <color name="primary_dark">#324238</color>
-    <color name="accent">#599034</color>
+    <color name="accent">#acd82f</color>
+    <color name="accentPressed">#31521C</color>
+    <color name="dunno">#f4f5e3</color>
 
-
+    <color name="base">#ffffff</color>
+    <color name="highlight">#ffffe1</color>
 </resources>

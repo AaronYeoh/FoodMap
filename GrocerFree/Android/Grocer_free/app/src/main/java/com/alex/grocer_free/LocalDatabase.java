@@ -5,13 +5,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by alex on 16/07/15.
@@ -33,6 +40,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOCATION);
         db.execSQL("CREATE TABLE " + TABLE_LOCATION + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY, " +
                 COLUMN_LAT_ADDRESS + " DOUBLE, " +
@@ -41,6 +49,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 COLUMN_DESCRIPTION + " TEXT, " +
                 COLUMN_IMAGE + " BLOB" +
                 ")");
+        populateDatabase();
     }
 
     @Override
@@ -130,8 +139,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
         String query = "(" + COLUMN_LAT_ADDRESS + "=" + position.latitude + ") AND " +
                 "(" + COLUMN_LNG_ADDRESS + "=" + position.longitude + ")";
 
-
         ContentValues args = new ContentValues();
+
         args.put(COLUMN_DESCRIPTION, item.getDesc());
         db.update(TABLE_LOCATION, args, query, null);
     }
@@ -141,5 +150,20 @@ public class LocalDatabase extends SQLiteOpenHelper {
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String formattedDate = df.format(c.getTime());
         return formattedDate;
+    }
+
+    private void populateDatabase(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("grocer");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> scoreList, ParseException e) {
+                if (e == null) {
+
+                    Log.d("score", "Retrieved " + scoreList.size() + " scores");
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            }
+        });
     }
 }

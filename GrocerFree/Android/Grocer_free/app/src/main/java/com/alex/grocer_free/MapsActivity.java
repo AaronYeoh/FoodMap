@@ -17,6 +17,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -27,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.directions.route.Route;
@@ -43,10 +45,22 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.Polyline;
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.software.shell.fab.ActionButton;
 
 import java.io.ByteArrayOutputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.List;
+
+import fr.ganfra.materialspinner.MaterialSpinner;
 
 public class MapsActivity extends FragmentActivity{
     Location getLastLocation;
@@ -58,6 +72,7 @@ public class MapsActivity extends FragmentActivity{
 
     LocalDatabase db;
     Polyline polyline;
+    ActionButton fab;
 
     String[] item_list = new String[] {"lemon", "apple", "orange"};
 
@@ -67,20 +82,56 @@ public class MapsActivity extends FragmentActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         getActionBar().hide();
+
         db = new LocalDatabase(this);
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "ChUKpoLVli5C5y8oQfv4EmLILIXku8KpXjMmqCzG", "6VFpmrRjxRudE572ep15xk7j9ioBJ19KKTFWl4rw");
+
+
+        fab = (ActionButton) findViewById(R.id.action_button);
 
         setUpMapIfNeeded();
 
         mMap.setMyLocationEnabled(true);
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
-            public boolean onMarkerClick(Marker marker) {
-                //TODO query db for latlng position and return info in drawerfragment
-
+            public boolean onMarkerClick(final Marker marker) {
                 marker.setSnippet(null);
+
+                ParseQuery query = new ParseQuery("TestObject");
+                ParseGeoPoint point = new ParseGeoPoint(marker.getPosition().latitude,
+                                                        marker.getPosition().longitude);
+                query.whereEqualTo("LatLng", point);
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> trees, ParseException e) {
+                        ParseObject fruit = trees.get(0);
+                        String name = fruit.getString("fruitType");
+                        String des = fruit.getString("description");
+                        ParseGeoPoint fruitLatLng = fruit.getParseGeoPoint("LatLng");
+
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("name", name);
+                        bundle.putString("description", des);
+                        bundle.putDouble("currentLat", currentLatitude);
+                        bundle.putDouble("currentLng", currentLongitude);
+
+                        DrawerFragment drawerFragment = new DrawerFragment();
+                        drawerFragment.setArguments(bundle);
+
+                        transaction.add(R.id.drawer_container, drawerFragment).commit();
+                    }
+
+
+                });
+
                 final LatLng start = currentLocation;
                 final LatLng end = marker.getPosition();
 
@@ -113,28 +164,12 @@ public class MapsActivity extends FragmentActivity{
                 routing.registerListener(routingListener);
                 routing.execute(start, end);
 
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
-                Bundle bundle = new Bundle();
-                bundle.putDouble("lat", marker.getPosition().latitude);
-                bundle.putDouble("lng", marker.getPosition().longitude);
-                bundle.putDouble("currentLat", currentLatitude);
-                bundle.putDouble("currentLng", currentLongitude);
-
-                DrawerFragment drawerFragment = new DrawerFragment();
-                drawerFragment.setArguments(bundle);
-
-                transaction.add(R.id.drawer_container, drawerFragment).commit();
                 return false;
             }
         });
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-
-            //Add item to map
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onMapClick(final LatLng latLng) {
-
+            public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
                 //builder.setTitle("Add new marker");
                 LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -143,9 +178,13 @@ public class MapsActivity extends FragmentActivity{
                 builder.setView(add_marker);
                 AlertDialog dialog = builder.create();
 
-                final Spinner spinner = (Spinner) add_marker.findViewById(R.id.item_spinner);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item, item_list);
+                final MaterialSpinner spinner = (MaterialSpinner) add_marker.findViewById(R.id.spinner);
+
+                String[] ITEMS = {"apple", "lemon", "orange"};
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, ITEMS);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(adapter);
+
 
                 final ImageButton addImage = (ImageButton) add_marker.findViewById(R.id.addImage);
                 addImage.setImageResource(R.drawable.ic_image_black_24dp);
@@ -172,17 +211,27 @@ public class MapsActivity extends FragmentActivity{
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
-                                String desc = item_description.getText().toString();
-                                String item = spinner.getSelectedItem().toString();
-
+                                //Create and save object in Parse database
                                 if (imageOf != null) {
+                                    String desc = item_description.getText().toString();
+                                    String item = spinner.getSelectedItem().toString();
                                     Bitmap bitmap = ((BitmapDrawable) imageOf.getDrawable()).getBitmap();
                                     byte[] imgByteArray = getBytes(bitmap);
-                                    addNewItemToMap(latLng, item, desc, imgByteArray);
-                                }
+                                    //addNewItemToMap(currentLocation, item, desc, imgByteArray);
 
-                                addNewItemToMap(latLng, item, desc);
+                                    ParseFile imgFile = new ParseFile("img.bmp", imgByteArray);
+                                    imgFile.saveInBackground();
+
+                                    ParseObject fruit = new ParseObject("TestObject");
+                                    fruit.put("fruitType", item);
+                                    fruit.put("description", desc);
+                                    fruit.put("LatLng", new ParseGeoPoint(currentLatitude,currentLongitude));
+                                    fruit.put("images", imgFile);
+
+                                    fruit.saveInBackground();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Please add an image", Toast.LENGTH_LONG).show();
+                                }
                             }
                         });
                 dialog.show();
@@ -288,15 +337,25 @@ public class MapsActivity extends FragmentActivity{
     }
 
     private void populateMapFromDatabase() {
-        ArrayList<Item> items = db.getAllItems();
-        for(Item item : items){
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.title(item.getItemType());
-            markerOptions.position(new LatLng(item.getLat(), item.getLng()));
-            markerOptions.snippet(item.getDesc());
-            markerOptions.icon(chooseMarkerIcon(item.getItemType()));
-            mMap.addMarker(markerOptions);
-        }
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("TestObject");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> markers, ParseException e) {
+                if (e == null) {
+                    for (ParseObject x : markers){
+                        Toast.makeText(getApplicationContext(), x.getString("fruitType"), Toast.LENGTH_LONG).show();
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.title(x.getString("fruitType"));
+                        LatLng pos = new LatLng(x.getParseGeoPoint("LatLng").getLatitude(),
+                                                x.getParseGeoPoint("LatLng").getLongitude());
+                        markerOptions.position(pos);
+                        markerOptions.icon(chooseMarkerIcon(x.getString("fruitType")));
+                        mMap.addMarker(markerOptions);
+                    }
+                } else {
+                    // handle Parse Exception here
+                }
+            }
+        });
 
     }
 

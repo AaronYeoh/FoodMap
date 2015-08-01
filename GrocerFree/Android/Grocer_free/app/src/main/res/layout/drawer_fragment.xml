@@ -2,16 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="250dp"
     android:layout_height="match_parent"
-    android:background="#ffffff">
-
-    <TextView
+    android:background="#CCffffff"
+    >
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/description"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"/>
+        android:background="@color/primary"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fruit_type"
+            style="@android:style/TextAppearance.Large"
+            android:paddingLeft="10dp"
+            android:paddingTop="7dp"
+            android:fontFamily=""/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/location"
+            style="@android:style/TextAppearance.Medium"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/description"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
+    </LinearLayout>
+
 
     <ScrollView
         android:layout_width="200dp"
@@ -23,7 +45,9 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/update_list">
+            android:id="@+id/update_list"
+            android:divider="#666666"
+            android:dividerHeight="0.3dp">
         </ListView>
     </ScrollView>
     <EditText

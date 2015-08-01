@@ -26,4 +26,10 @@ dependencies {
     compile 'com.android.support:design:22.2.0'
     compile 'com.github.ganfra:material-spinner:1.1.0'
     compile 'com.github.jd-alexander:library:1.0.1'
+    compile 'com.github.shell-software:fab:1.1.2'
+    compile 'com.parse.bolts:bolts-android:1.+'
+    compile fileTree(dir: 'libs', include: 'Parse-*.jar')
+    compile ('com.github.ganfra:material-spinner:1.1.0'){
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
 }

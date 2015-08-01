@@ -13,15 +13,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/item_spinner"
+        <fr.ganfra.materialspinner.MaterialSpinner
+            android:id="@+id/spinner"
+            app:ms_multiline="false"
+            app:ms_hint="hint"
 
-
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true">
-        </Spinner>
+            app:ms_floatingLabelText="floating label"
+            app:ms_baseColor="@color/base"
+            app:ms_highlightColor="@color/highlight"
+            app:ms_alignLabels="false"
+            app:ms_floatingLabelColor="#00FF00"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
 
         <ImageButton
             android:layout_width="wrap_content"
