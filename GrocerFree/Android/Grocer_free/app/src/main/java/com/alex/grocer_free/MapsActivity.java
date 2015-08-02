@@ -115,40 +115,20 @@ public class MapsActivity extends FragmentActivity{
             @Override
             public boolean onMarkerClick(final Marker marker) {
                 marker.setSnippet(null);
-                Log.d("LatLng", String.valueOf(marker.getPosition().latitude));
-                ParseQuery query = new ParseQuery("TestObject");
-                ParseGeoPoint point = new ParseGeoPoint(marker.getPosition().latitude,
-                                                        marker.getPosition().longitude);
-                //query.whereEqualTo("LatLng", point);
-                query.whereWithinKilometers("LatLng", point, 0.001);
-                query.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> trees, ParseException e) {
-                        ParseObject fruit = trees.get(0);
-                        String name = fruit.getString("fruitType");
-                        String des = fruit.getString("description");
-                        ParseGeoPoint fruitLatLng = fruit.getParseGeoPoint("LatLng");
-                        
 
-                        transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+                transaction = getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
 
-                        Bundle bundle = new Bundle();
-                        bundle.putString("name", name);
-                        bundle.putString("description", des);
-                        bundle.putDouble("currentLat", fruitLatLng.getLatitude());
-                        bundle.putDouble("currentLng", fruitLatLng.getLongitude());
+                Bundle bundle = new Bundle();
+                bundle.putDouble("currentLat", marker.getPosition().latitude);
+                bundle.putDouble("currentLng", marker.getPosition().longitude);
 
-                        drawerFragment = new DrawerFragment();
+                drawerFragment = new DrawerFragment();
+                drawerFragment.setArguments(bundle);
 
-                        drawerFragment.setArguments(bundle);
+                transaction.add(R.id.drawer_container, drawerFragment).commit();
 
-                        transaction.add(R.id.drawer_container, drawerFragment).commit();
-                    }
-
-
-                });
-
+                //Routing
                 final LatLng start = currentLocation;
                 final LatLng end = marker.getPosition();
 

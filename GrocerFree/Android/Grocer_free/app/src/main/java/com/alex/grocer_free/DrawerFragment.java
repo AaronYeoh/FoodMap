@@ -22,6 +22,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,6 +43,10 @@ public class DrawerFragment extends Fragment {
     Context context;
     LocalDatabase db;
     private ListView listView;
+    String name;
+    String des;
+    ParseGeoPoint fruitLatLng;
+    ParseFile img;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,30 +54,52 @@ public class DrawerFragment extends Fragment {
         db = new LocalDatabase(context);
         geocoder = new Geocoder(context);
 
-        View frag = inflater.inflate(R.layout.drawer_fragment, container, false);
+        final View frag = inflater.inflate(R.layout.drawer_fragment, container, false);
 
-        TextView description = (TextView) frag.findViewById(R.id.description);
+        final TextView description = (TextView) frag.findViewById(R.id.description);
         listView = (ListView) frag.findViewById(R.id.update_list);
         final EditText updateEdit = (EditText) frag.findViewById(R.id.update_edit);
         Button updateListButton = (Button) frag.findViewById(R.id.updateListButton);
-        ImageView imageView = (ImageView) frag.findViewById(R.id.image);
-        TextView fruitType = (TextView) frag.findViewById(R.id.fruit_type);
-        TextView location = (TextView) frag.findViewById(R.id.location);
+        final ImageView imageView = (ImageView) frag.findViewById(R.id.image);
+        final TextView fruitType = (TextView) frag.findViewById(R.id.fruit_type);
+        final TextView location = (TextView) frag.findViewById(R.id.location);
 
         Bundle bundle = this.getArguments();
         final double lat = bundle.getDouble("currentLat");
         final double lng = bundle.getDouble("currentLng");
-        final String name = bundle.getString("name");
-        final String desc = bundle.getString("description");
 
-        try {
-            addresses =geocoder.getFromLocation(lat, lng, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        fruitType.setText(name + " tree");
-        location.setText(addresses.get(0).getSubLocality() + ", " + addresses.get(0).getLocality());
-        description.setText(desc);
+        ParseQuery query = new ParseQuery("TestObject");
+        ParseGeoPoint point = new ParseGeoPoint(lat, lng);
+        //query.whereEqualTo("LatLng", point);
+        query.whereWithinKilometers("LatLng", point, 0.001);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> trees, ParseException e) {
+                //todo loading screen while async because jank
+                ParseObject fruit = trees.get(0);
+                name = fruit.getString("fruitType");
+                Toast.makeText(context, name, Toast.LENGTH_LONG).show();
+
+                des = fruit.getString("description");
+                fruitLatLng = fruit.getParseGeoPoint("LatLng");
+                img = fruit.getParseFile("images");
+                try {
+                    addresses = geocoder.getFromLocation(lat, lng, 1);
+                } catch (IOException ie) {
+                    ie.printStackTrace();
+                }
+                fruitType.setText(name + " tree");
+                location.setText(addresses.get(0).getSubLocality() + ", " + addresses.get(0).getLocality());
+                description.setText(des);
+                try {
+                    imageView.setImageBitmap(getImage(img.getData()));
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+
+
 
         //Set listview of updates for item
         //TODO custom adapter and all that
