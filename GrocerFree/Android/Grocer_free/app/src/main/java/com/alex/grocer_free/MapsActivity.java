@@ -17,8 +17,11 @@ import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -69,7 +72,8 @@ public class MapsActivity extends FragmentActivity{
     LatLng currentLocation;
     LocationManager locationManager;
     public GoogleMap mMap;
-
+    DrawerFragment drawerFragment;
+    FragmentTransaction transaction;
     LocalDatabase db;
     Polyline polyline;
     ActionButton fab;
@@ -97,15 +101,26 @@ public class MapsActivity extends FragmentActivity{
         setUpMapIfNeeded();
 
         mMap.setMyLocationEnabled(true);
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                if(drawerFragment != null){
+                    transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+                    transaction.remove(drawerFragment).commit();
+                }
+            }
+        });
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(final Marker marker) {
                 marker.setSnippet(null);
-
+                Log.d("LatLng", String.valueOf(marker.getPosition().latitude));
                 ParseQuery query = new ParseQuery("TestObject");
                 ParseGeoPoint point = new ParseGeoPoint(marker.getPosition().latitude,
                                                         marker.getPosition().longitude);
-                query.whereEqualTo("LatLng", point);
+                //query.whereEqualTo("LatLng", point);
+                query.whereWithinKilometers("LatLng", point, 0.001);
                 query.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> trees, ParseException e) {
@@ -113,17 +128,19 @@ public class MapsActivity extends FragmentActivity{
                         String name = fruit.getString("fruitType");
                         String des = fruit.getString("description");
                         ParseGeoPoint fruitLatLng = fruit.getParseGeoPoint("LatLng");
+                        
 
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction = getSupportFragmentManager().beginTransaction();
                         transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
 
                         Bundle bundle = new Bundle();
                         bundle.putString("name", name);
                         bundle.putString("description", des);
-                        bundle.putDouble("currentLat", currentLatitude);
-                        bundle.putDouble("currentLng", currentLongitude);
+                        bundle.putDouble("currentLat", fruitLatLng.getLatitude());
+                        bundle.putDouble("currentLng", fruitLatLng.getLongitude());
 
-                        DrawerFragment drawerFragment = new DrawerFragment();
+                        drawerFragment = new DrawerFragment();
+
                         drawerFragment.setArguments(bundle);
 
                         transaction.add(R.id.drawer_container, drawerFragment).commit();
@@ -455,7 +472,4 @@ public class MapsActivity extends FragmentActivity{
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
         return stream.toByteArray();
     }
-
-    // convert from byte array to bitmap
-
 }
