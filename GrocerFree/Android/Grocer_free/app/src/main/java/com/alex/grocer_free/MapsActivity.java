@@ -339,7 +339,6 @@ public class MapsActivity extends FragmentActivity{
             public void done(List<ParseObject> markers, ParseException e) {
                 if (e == null) {
                     for (ParseObject x : markers){
-                        Toast.makeText(getApplicationContext(), x.getString("fruitType"), Toast.LENGTH_LONG).show();
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.title(x.getString("fruitType"));
                         LatLng pos = new LatLng(x.getParseGeoPoint("LatLng").getLatitude(),

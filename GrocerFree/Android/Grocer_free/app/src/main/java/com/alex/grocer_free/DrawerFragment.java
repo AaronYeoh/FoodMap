@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GestureDetectorCompat;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
@@ -30,10 +32,13 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-
+import java.text.SimpleDateFormat;
 /**
  * Created by alex on 8/07/15.
  */
@@ -45,6 +50,7 @@ public class DrawerFragment extends Fragment {
     private ListView listView;
     String name;
     String des;
+    String objectId;
     ParseGeoPoint fruitLatLng;
     ParseFile img;
     @Nullable
@@ -68,7 +74,7 @@ public class DrawerFragment extends Fragment {
         final double lat = bundle.getDouble("currentLat");
         final double lng = bundle.getDouble("currentLng");
 
-        ParseQuery query = new ParseQuery("TestObject");
+        final ParseQuery query = new ParseQuery("TestObject");
         ParseGeoPoint point = new ParseGeoPoint(lat, lng);
         //query.whereEqualTo("LatLng", point);
         query.whereWithinKilometers("LatLng", point, 0.001);
@@ -77,6 +83,7 @@ public class DrawerFragment extends Fragment {
             public void done(List<ParseObject> trees, ParseException e) {
                 //todo loading screen while async because jank
                 ParseObject fruit = trees.get(0);
+                objectId = fruit.getObjectId();
                 name = fruit.getString("fruitType");
                 Toast.makeText(context, name, Toast.LENGTH_LONG).show();
 
@@ -88,6 +95,11 @@ public class DrawerFragment extends Fragment {
                 } catch (IOException ie) {
                     ie.printStackTrace();
                 }
+                ArrayList<String> updates = getUpdates(fruit.getString("description"));
+
+                UpdateListAdapter adapter = new UpdateListAdapter(context,
+                        R.layout.update_list_row, updates);
+                listView.setAdapter(adapter);
                 fruitType.setText(name + " tree");
                 location.setText(addresses.get(0).getSubLocality() + ", " + addresses.get(0).getLocality());
                 description.setText(des);
@@ -114,23 +126,39 @@ public class DrawerFragment extends Fragment {
         updateListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String update = updateEdit.getText().toString();
-                db.updateItem(new LatLng(lat, lng), update);
-                Item item = db.getItemByLatLng(lat, lng);
-                ArrayList<String> updateItems = getUpdates(item.getDesc());
-                UpdateListAdapter adapter = new UpdateListAdapter(context,
-                        R.layout.update_list_row, updateItems);
-                listView.setAdapter(adapter);
-                Toast.makeText(context, item.getDesc().split("###").toString(), Toast.LENGTH_SHORT).show();
+                final ParseQuery query = new ParseQuery("TestObject");
+                query.whereEqualTo("objectId", objectId);
+                query.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject tree, ParseException e) {
+                        //todo loading screen while async because jank
+                        DateFormat df = new SimpleDateFormat("EEE - MMM d");
+                        String date = df.format(Calendar.getInstance().getTime());
+                        String update = updateEdit.getText().toString();
+                        tree.put("description", tree.getString("description") + "###" +
+                                update + "," + date);
+                        tree.saveInBackground();
+                    }
+                });
+                //Refresh ListView
+                final ParseQuery refresh = new ParseQuery("TestObject");
+                refresh.whereEqualTo("objectId", objectId);
+                refresh.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject tree, ParseException e) {
+
+                        ArrayList<String> updates = getUpdates(tree.getString("description"));
+                        for(String i : updates){
+                            Log.d("updateItems", i);
+                        }
+                        UpdateListAdapter adapter = new UpdateListAdapter(context,
+                                R.layout.update_list_row, updates);
+                        listView.setAdapter(adapter);
+                    }
+                });
             }
         });
-
         return frag;
-        //return inflater.inflate(R.layout.drawer_fragment, container, false);
+                //return inflater.inflate(R.layout.drawer_fragment, container, false);
     }
-
-    //private List<String> getUpdates(String desc) {
-    //}
 
 
     public static Bitmap getImage(byte[] image) {
@@ -142,6 +170,7 @@ public class DrawerFragment extends Fragment {
         for(String update : desc.split("###")){
             updateList.add(update);
         }
+        updateList.remove(0);
         return updateList;
     }
 

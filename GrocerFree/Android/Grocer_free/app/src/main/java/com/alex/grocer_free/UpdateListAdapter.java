@@ -1,6 +1,7 @@
 package com.alex.grocer_free;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ public class UpdateListAdapter extends ArrayAdapter {
         convertView = inflater.inflate(R.layout.update_list_row, null);
 
         String item = String.valueOf(getItem(position));
+        Log.d("item", item);
         //Not sure if this will work
 
         String[] descDate = item.split(",");
