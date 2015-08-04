@@ -109,41 +109,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
         return itemList;
     }
 
-    public Item getItemByLatLng(double lat, double lng){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_LOCATION + " WHERE " +
-                "(" + "(" + COLUMN_LAT_ADDRESS + "=" + lat + ") AND " +
-                        "(" + COLUMN_LNG_ADDRESS + "=" + lng + ")" +
-                ")";
-        Cursor cursor = db.rawQuery(query, null);
-        cursor.moveToFirst();
-
-        Item item = new Item();
-        item.setDesc(cursor.getString(4));
-        item.setItemType(cursor.getString(3));
-        item.setImage(cursor.getBlob(5));
-        cursor.close();
-        return item;
-    }
 
 
-    public void updateItem(LatLng position, String update){
-
-        update = update + "," + getCurrentDate();
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Item item = getItemByLatLng(position.latitude, position.longitude);
-
-        item.setDesc(item.getDesc().concat("###" + update));
-
-        String query = "(" + COLUMN_LAT_ADDRESS + "=" + position.latitude + ") AND " +
-                "(" + COLUMN_LNG_ADDRESS + "=" + position.longitude + ")";
-
-        ContentValues args = new ContentValues();
-
-        args.put(COLUMN_DESCRIPTION, item.getDesc());
-        db.update(TABLE_LOCATION, args, query, null);
-    }
 
     private String getCurrentDate(){
         Calendar c = Calendar.getInstance();

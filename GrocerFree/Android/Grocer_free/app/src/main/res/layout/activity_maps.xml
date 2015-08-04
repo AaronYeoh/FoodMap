@@ -9,9 +9,29 @@
             android:layout_height="wrap_content"
             android:id="@+id/map" tools:context=".MapsActivity"
             android:name="com.google.android.gms.maps.SupportMapFragment">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    android:id="@+id/textbox"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp">
+                    <AutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/search_bar"
+                        android:hint="search"
+                        />
+
+                </LinearLayout>
+
                 <FrameLayout
                     android:id="@+id/drawer_container"
                     android:layout_width="500dp"
@@ -41,18 +61,7 @@
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:id="@+id/toolbar">
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/home">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_home_white_18dp"/>
-        </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"

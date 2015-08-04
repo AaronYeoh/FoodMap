@@ -23,7 +23,9 @@ import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -236,13 +238,7 @@ public class MapsActivity extends FragmentActivity{
         });
 
         LinearLayout toolbar = (LinearLayout) findViewById(R.id.toolbar);
-        RelativeLayout home = (RelativeLayout) toolbar.findViewById(R.id.home);
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.setBackgroundColor(getResources().getColor(R.color.accent));
-            }
-        });
+
         RelativeLayout settings = (RelativeLayout) toolbar.findViewById(R.id.settings);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,6 +258,19 @@ public class MapsActivity extends FragmentActivity{
             @Override
             public void onClick(View v) {
                 v.setBackgroundColor(getResources().getColor(R.color.accent));
+                LinearLayout l = (LinearLayout) findViewById(R.id.textbox);
+                l.setVisibility(View.VISIBLE);
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
+                AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) l.findViewById(R.id.search_bar);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                        (getApplicationContext(),android.R.layout.simple_list_item_1, item_list);
+
+                autoCompleteTextView.setThreshold(1);
+                autoCompleteTextView.setAdapter(adapter);
             }
         });
         RelativeLayout profile = (RelativeLayout) toolbar.findViewById(R.id.profile);
