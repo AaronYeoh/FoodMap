@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -261,7 +262,7 @@ public class MapsActivity extends FragmentActivity{
                 LinearLayout l = (LinearLayout) findViewById(R.id.textbox);
                 l.setVisibility(View.VISIBLE);
 
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
                 AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) l.findViewById(R.id.search_bar);
@@ -271,6 +272,19 @@ public class MapsActivity extends FragmentActivity{
 
                 autoCompleteTextView.setThreshold(1);
                 autoCompleteTextView.setAdapter(adapter);
+
+                autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String fruitToSearch = parent.getItemAtPosition(position).toString();
+
+                        mMap.clear();
+                        populateMapFromDatabase(fruitToSearch);
+
+                        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
+                    }
+                });
             }
         });
         RelativeLayout profile = (RelativeLayout) toolbar.findViewById(R.id.profile);
@@ -347,11 +361,11 @@ public class MapsActivity extends FragmentActivity{
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> markers, ParseException e) {
                 if (e == null) {
-                    for (ParseObject x : markers){
+                    for (ParseObject x : markers) {
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.title(x.getString("fruitType"));
                         LatLng pos = new LatLng(x.getParseGeoPoint("LatLng").getLatitude(),
-                                                x.getParseGeoPoint("LatLng").getLongitude());
+                                x.getParseGeoPoint("LatLng").getLongitude());
                         markerOptions.position(pos);
                         markerOptions.icon(chooseMarkerIcon(x.getString("fruitType")));
                         mMap.addMarker(markerOptions);
@@ -362,6 +376,28 @@ public class MapsActivity extends FragmentActivity{
             }
         });
 
+    }
+
+    private void populateMapFromDatabase(String fruitType){
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("TestObject");
+        query.whereEqualTo("fruitType", fruitType);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> markers, ParseException e) {
+                if (e == null) {
+                    for (ParseObject x : markers){
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.title(x.getString("fruitType"));
+                        LatLng pos = new LatLng(x.getParseGeoPoint("LatLng").getLatitude(),
+                                x.getParseGeoPoint("LatLng").getLongitude());
+                        markerOptions.position(pos);
+                        markerOptions.icon(chooseMarkerIcon(x.getString("fruitType")));
+                        mMap.addMarker(markerOptions);
+                    }
+                } else {
+                    // handle Parse Exception here
+                }
+            }
+        });
     }
 
     public void addDrawerFragment(){
