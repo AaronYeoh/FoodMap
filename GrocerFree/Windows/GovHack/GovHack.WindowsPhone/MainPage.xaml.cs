@@ -130,7 +130,7 @@ namespace GovHack
                 Longitude = -122.349
             });
             MapIcon1.NormalizedAnchorPoint = new Point(0.5, 1.0);
-            MapIcon1.Title = "Space Needle";
+            MapIcon1.Title = "A fruit";
             MapControl1.MapElements.Add(MapIcon1);
         }
 
