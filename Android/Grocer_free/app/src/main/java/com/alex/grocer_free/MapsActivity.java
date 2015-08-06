@@ -1,41 +1,33 @@
 package com.alex.grocer_free;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
-import android.media.Image;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GestureDetectorCompat;
-import android.util.Log;
-import android.view.GestureDetector;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.directions.route.Route;
 import com.directions.route.Routing;
@@ -52,7 +44,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -61,9 +52,6 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.software.shell.fab.ActionButton;
 
-import java.io.ByteArrayOutputStream;
-import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -108,28 +96,20 @@ public class MapsActivity extends FragmentActivity{
             @Override
             public void onMapClick(LatLng latLng) {
                 if(drawerFragment != null){
-                    transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-                    transaction.remove(drawerFragment).commit();
+                    removeDrawerFrag();
                 }
             }
         });
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(final Marker marker) {
-                marker.setSnippet(null);
-
-                transaction = getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
+                if(drawerFragment != null){
+                    removeDrawerFrag();
+                }
                 Bundle bundle = new Bundle();
                 bundle.putDouble("currentLat", marker.getPosition().latitude);
                 bundle.putDouble("currentLng", marker.getPosition().longitude);
-
-                drawerFragment = new DrawerFragment();
-                drawerFragment.setArguments(bundle);
-
-                transaction.add(R.id.drawer_container, drawerFragment).commit();
+                addDrawerFragment(bundle);
 
                 //Routing
                 final LatLng start = currentLocation;
@@ -140,17 +120,12 @@ public class MapsActivity extends FragmentActivity{
                 RoutingListener routingListener = new RoutingListener() {
                     @Override
                     public void onRoutingFailure() {
-
                     }
-
                     @Override
                     public void onRoutingStart() {
-
                     }
-
                     @Override
                     public void onRoutingSuccess(PolylineOptions polylineOptions, Route route) {
-
                         if (polyline != null)
                             polyline.remove();
                         polyline = null;
@@ -170,6 +145,9 @@ public class MapsActivity extends FragmentActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(drawerFragment != null){
+                    removeDrawerFrag();
+                }
                 AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
                 //builder.setTitle("Add new marker");
                 LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -212,11 +190,11 @@ public class MapsActivity extends FragmentActivity{
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //Create and save object in Parse database
-                                if (imageOf != null) {
+                                if (imageOf.getDrawable() != null) {
                                     String desc = item_description.getText().toString();
                                     String item = spinner.getSelectedItem().toString();
                                     Bitmap bitmap = ((BitmapDrawable) imageOf.getDrawable()).getBitmap();
-                                    byte[] imgByteArray = getBytes(bitmap);
+                                    byte[] imgByteArray = Utils.getBytes(bitmap);
                                     //addNewItemToMap(currentLocation, item, desc, imgByteArray);
 
                                     ParseFile imgFile = new ParseFile("img.bmp", imgByteArray);
@@ -229,6 +207,7 @@ public class MapsActivity extends FragmentActivity{
                                     fruit.put("images", imgFile);
 
                                     fruit.saveInBackground();
+                                    addNewItemToMap(new LatLng(currentLatitude, currentLongitude), item, desc);
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Please add an image", Toast.LENGTH_LONG).show();
                                 }
@@ -244,21 +223,23 @@ public class MapsActivity extends FragmentActivity{
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setBackgroundColor(getResources().getColor(R.color.accent));
             }
         });
         RelativeLayout point = (RelativeLayout) toolbar.findViewById(R.id.point);
         point.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setBackgroundColor(getResources().getColor(R.color.accent));
+                if(drawerFragment != null){
+                    removeDrawerFrag();
+                }
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentLocation, 17);
+                mMap.animateCamera(cameraUpdate);
             }
         });
         RelativeLayout search = (RelativeLayout) toolbar.findViewById(R.id.search);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setBackgroundColor(getResources().getColor(R.color.accent));
                 LinearLayout l = (LinearLayout) findViewById(R.id.textbox);
                 l.setVisibility(View.VISIBLE);
 
@@ -291,7 +272,6 @@ public class MapsActivity extends FragmentActivity{
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setBackgroundColor(getResources().getColor(R.color.accent));
             }
         });
 
@@ -400,31 +380,16 @@ public class MapsActivity extends FragmentActivity{
         });
     }
 
-    public void addDrawerFragment(){
-        if (findViewById(R.id.drawer_container) != null) {
+    public void addDrawerFragment(Bundle bundle){
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
 
-            // However, if we're being restored from a previous state,
-            // then we don't need to do anything and should return or else
-            // we could end up with overlapping fragments.
-
-
-            // Create a new Fragment to be placed in the activity layout
-            DrawerFragment firstFragment = new DrawerFragment();
-
-
-            // Add the fragment to the 'fragment_container' FrameLayout
-
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-            transaction.add(R.id.drawer_container, firstFragment).commit();
-
-
-        }
-
+        drawerFragment = new DrawerFragment();
+        drawerFragment.setArguments(bundle);
+        transaction.add(R.id.drawer_container, drawerFragment).commit();
     }
 
     public void addNewItemToMap(LatLng latLng, String title, String description){
-
         Item item = new Item();
         item.setLat(latLng.latitude);
         item.setLng(latLng.longitude);
@@ -437,35 +402,9 @@ public class MapsActivity extends FragmentActivity{
         //TODO custom drawable
         markerOptions.icon(chooseMarkerIcon(title));
         mMap.addMarker(markerOptions);
-        //TODO insert into db
-
-        db.insertItem(item);
-
-    }
-
-    public void addNewItemToMap(LatLng latLng, String title, String description, byte[] byteArray){
-
-        Item item = new Item();
-        item.setLat(latLng.latitude);
-        item.setLng(latLng.longitude);
-        item.setItemType(title);
-        item.setDesc(description);
-        item.setImage(byteArray);
-
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title(title);
-        //TODO custom drawable
-        markerOptions.icon(chooseMarkerIcon(title));
-        mMap.addMarker(markerOptions);
-        //TODO insert into db
-
-        db.insertItem(item);
-
     }
 
     public BitmapDescriptor chooseMarkerIcon(String title){
-
         int id = getResources().getIdentifier(title, "drawable", getPackageName());
         Drawable drawable = getResources().getDrawable(id);
 
@@ -491,9 +430,9 @@ public class MapsActivity extends FragmentActivity{
         }
     }
 
-    public static byte[] getBytes(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-        return stream.toByteArray();
+    public void removeDrawerFrag(){
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+        transaction.remove(drawerFragment).commit();
     }
 }

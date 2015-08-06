@@ -1,8 +1,11 @@
 package com.alex.grocer_free;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -10,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -22,6 +26,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -102,7 +108,7 @@ public class DrawerFragment extends Fragment {
                 listView.setAdapter(adapter);
                 fruitType.setText(name + " tree");
                 location.setText(addresses.get(0).getSubLocality() + ", " + addresses.get(0).getLocality());
-                description.setText(des);
+                description.setText((des.split("###"))[0]);
                 try {
                     imageView.setImageBitmap(getImage(img.getData()));
                 } catch (ParseException e1) {
@@ -110,18 +116,6 @@ public class DrawerFragment extends Fragment {
                 }
             }
         });
-
-
-
-        //Set listview of updates for item
-        //TODO custom adapter and all that
-        //final ArrayList<String> updateItems = getUpdates(desc);
-        //UpdateListAdapter adapter = new UpdateListAdapter(context, R.layout.update_list_row, updateItems);
-        //listView.setAdapter(adapter);
-
-        //Set image of item
-        //imageView.setImageBitmap(
-         //       getImage(item.getImage()));
 
         updateListButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,6 +167,7 @@ public class DrawerFragment extends Fragment {
         updateList.remove(0);
         return updateList;
     }
+
 
 
 }
