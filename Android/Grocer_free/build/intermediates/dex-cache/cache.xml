@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1e98ef3f124bb7a11f8575f9ff5dfea330b61b6f">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-b19e56d665d16c639893d4c527ef560eb1209db9.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-cf961f0a5d1df2c375d08afbed1fcd33df7eb244.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8d736fefa22d896e84a268354b3ed48a42663150">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-955d2d472320f58084c81e12f7928b972c57612d.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ba207be21987c11b37d9f8faa08ed6e722569f30">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-bd0499e81ef79df99710266d03fc39f274ee7b07.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1e98ef3f124bb7a11f8575f9ff5dfea330b61b6f">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-740015d405fd3747e24e94fd3877955c518977a0.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a172852a35ff919e85b9b7f14bbc15c5bee25520">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-60ac6424573616dc2a92437f784447d6e8a66d39.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e7b35244f50663b3f8d150714bca9ecd7a290da1">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-ee3fbdecb1180d06f0d0b68f93d3c6f06b7599e2.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appstate/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="68c140702c7242d914655bcb3164d9e8c45b84cb">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-b5613fc2d172b5853bf55daa8a70f326c3ec7575.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f44d03c138cb6488fdbaa65e3a7e5878861a56d8">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-61b7fa969ee991fc745174e3c449a3f66375207d.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="29ebc7e04d877062317c8cc0e68b20f0c1fcda66">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-f6152713a1517d91b4f09eb2b3d6f334b1a1573a.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appstate/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="68c140702c7242d914655bcb3164d9e8c45b84cb">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-29e5c2f852299425dfea83fc21651e5c11069d78.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a172852a35ff919e85b9b7f14bbc15c5bee25520">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-abeddb6094eebfcfb55df3158f20bc0999e684ae.jar" />
+    </item>
+    <item
+        jar="/home/alex/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.2.0/6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd/bolts-android-1.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/bolts-android-1.2.0-26c6f92a9df1d7ba0edbd88bc9aaebbd3b739a7f.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="272bc5d7063f24bc3a33ea1d318cde8f31f5ec4c">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-d13d69c2e7125cf339aa9745f98acad97302fdf6.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e7b35244f50663b3f8d150714bca9ecd7a290da1">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-b92bb7b2268b3fb536715f7037dcbdddeb139eb9.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d405025c600055237c171a0bbabaa49d69696573">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-6d46eee25e27c0cd38fe8f2c748184f14cf228b1.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a78183f30e769a98ab4820794f597763088d3065">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-5ee95d5976e6bb855926d1bcd1aa21bc2ffac296.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-0d29c09193b4f17cc116ecb62e53815bdbbba3d6.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-e241387a54da8ea45d68215e18e59a9abee6fd33.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-ec6a002c72b84da7974b9e9a2771545ecdce2c33.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f02127a85abd52a2cd526d4c2409f21969f80ee8">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-de53db20e2f3f30cad0d5a2e7db4f0298a9a05e7.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="63ec6e9f4fe5482a7447d0f3091b8e543a02554c">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-63d7b8bcc187f1c2ea45aade27f14e51515729b9.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="63ec6e9f4fe5482a7447d0f3091b8e543a02554c">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-d2c003b443400bbea1be697df10f6caca3125368.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f02127a85abd52a2cd526d4c2409f21969f80ee8">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-13df34899966b8be38aa327e082ff6b8ef3b9ae7.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="06a42becc33232ec0ee125161da68c1829c9f8fd">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-04a0981fd7b24ed661973be8cc3a0689b8ea31fa.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f44d03c138cb6488fdbaa65e3a7e5878861a56d8">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-847fac4c8aaa6a1b29b138bc350a6b7cf823d17f.jar" />
+    </item>
+    <item
+        jar="/home/alex/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/library-2.4.0-11d105286dd107c07b8be3711ce3c93ce801dcab.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="29ebc7e04d877062317c8cc0e68b20f0c1fcda66">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-a1b99850365bdc1b9602dbd0a8b5009390e45d14.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.github.shell-software/fab/1.1.2/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="48bbecbdd3ed42e9df1b94a945480838e3bb208b">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-7bfe62166118cea7c49c626ef620b0c67f116bc6.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.github.ganfra/material-spinner/1.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a973f67796996adb991bd6e63a11b2b88a571219">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-b9bcac769e58e3dc5f8bdb646ec69e75aad0a4f2.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a1372c17fccacca753d3951d3ad820571cbce075">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-63e513eb3b4159bcaf8b1f3d2dba9bcfb09c3e7b.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="6836d188602ec5382d1967c58b00960eb8ff8773">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-39553106e0b1ca1f998f6aaf836a453914763b9d.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="272bc5d7063f24bc3a33ea1d318cde8f31f5ec4c">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-6ba829dc4ba486aeece1c295d8e7f2b61826fa9f.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.github.jd-alexander/library/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5972d2a9244bb9d4c24b162b895837a04e879e2d">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-2db8c756fca0ee07946603e786f625b2da2020f2.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="6440e5e5cfe368f9bff3c537fb8988048069cb33">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-57bdeff6cc574c3378edab734ea7fd5399ca9d0f.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.github.shell-software/viewmover/1.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3d6dc28c575755c91be7f6a69803e4ebe98c7c7d">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-c24c92c69fec5aacd6aa250fcdcb1fe502df1b66.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/jars/libs/internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ba3df4eb0a630d7de294f0e48d3f9267d279b784">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-9911bf734df6b670e66de624ebdc53e3fb054543.jar" />
+    </item>
+    <item
+        jar="/home/alex/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.9/872ec63b41181e29ad5a3723f1417356e2d2c0f2/slf4j-api-1.7.9.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="872ec63b41181e29ad5a3723f1417356e2d2c0f2">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/slf4j-api-1.7.9-5a3dee234225bfa3c04103739ed39899e17429b7.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d405025c600055237c171a0bbabaa49d69696573">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-e04f49db67e09d9508d5b5a169e40d668d2836e2.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ba207be21987c11b37d9f8faa08ed6e722569f30">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-d91a136253f4a3b16efb07455b064b95c730ebe9.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1a6411087ab88ce5542f593e63a2752b6b0d6f1a">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-9d36f5870e6745e6af65c36af349e8edace9cc87.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-276a666f101a808c3ddc282605dd2ad3efef5a68.jar" />
+    </item>
+    <item
+        jar="/home/alex/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-8518d85d2f9cb99a148048e062acbdd60890fa8c.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="69dd177337ead693c408c8dddc9546bb6f1244fa">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-058bb9bd203a427129395ef26b4674a3577045e8.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="6440e5e5cfe368f9bff3c537fb8988048069cb33">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-784a01daf1f8ae16b703175802b5dc317295960b.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="02bac2dc792d78241077861566f2c82da955e7fa">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-88e05a3dfbdbf53663cd72273eeac59efc4c146a.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8d736fefa22d896e84a268354b3ed48a42663150">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-c78c177a60016604ca98c94cd0778c55948871a7.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.github.shell-software/uitools/1.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="418307d960be5f7c5fe13794b7283f5fd09d0c17">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-86d17491b48f577744b5e3612f3733ee014222d9.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/jars/libs/internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ba3df4eb0a630d7de294f0e48d3f9267d279b784">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-d5d7e6798c8f235944f78b64843cdf5a3bd0bf5d.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a1372c17fccacca753d3951d3ad820571cbce075">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-d3e61faf855340ba16d666f96bf501757a150845.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8e3a972f28b8bae817e382257ba177a31bcadbbc">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-fc14ff2381faaf3c41c3ffdc6630b517ae5cf8a1.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="06a42becc33232ec0ee125161da68c1829c9f8fd">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-d311fafe33e787a4e0dad73f3c3cdf8dcc41bd04.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/libs/Parse-1.9.4.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="56c22930b5d4f77015b6a40c7f14103d3e101001">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/Parse-1.9.4-6b1909f0c7f87b612caf861804086d8820f00244.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="6836d188602ec5382d1967c58b00960eb8ff8773">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-c9e25112e56cacc37fb01a8adc6f3b492316456b.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="69dd177337ead693c408c8dddc9546bb6f1244fa">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-4fa6277857876588ddc737c6d34bd65289c62dfd.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-1e7a2e26dfa35a1fc9485a8946e27021f4c89694.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1a6411087ab88ce5542f593e63a2752b6b0d6f1a">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-83eb09e723d79e3cf22b0b86918426f5f4b54eb9.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-4fe463df3c4185c4e853b14239984052ea256615.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a78183f30e769a98ab4820794f597763088d3065">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-d30570e9eded897997425c29e934d889404f4f1c.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8e3a972f28b8bae817e382257ba177a31bcadbbc">
+        <dex dex="/home/alex/Documents/android-projects/Grocer_Free/app/build/intermediates/pre-dexed/debug/classes-0a187a495c90536f1886068c1e70611c7637a585.jar" />
+    </item>
+    <item
+        jar="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="02bac2dc792d78241077861566f2c82da955e7fa">
+        <dex dex="/home/alex/Documents/android-projects/FoodMap/GrocerFree/Android/Grocer_free/app/build/intermediates/pre-dexed/debug/classes-4ea6ed1905b8f19ac2eab50cd053c71d5c341daf.jar" />
+    </item>
+
+</items>
