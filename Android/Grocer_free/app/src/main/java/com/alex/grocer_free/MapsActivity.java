@@ -106,40 +106,47 @@ public class MapsActivity extends FragmentActivity{
                 if(drawerFragment != null){
                     removeDrawerFrag();
                 }
-                Bundle bundle = new Bundle();
-                bundle.putDouble("currentLat", marker.getPosition().latitude);
-                bundle.putDouble("currentLng", marker.getPosition().longitude);
-                addDrawerFragment(bundle);
+                if(marker.getTitle().equals("Current Location")){
+                    marker.showInfoWindow();
+                    return false;
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putDouble("currentLat", marker.getPosition().latitude);
+                    bundle.putDouble("currentLng", marker.getPosition().longitude);
+                    addDrawerFragment(bundle);
 
-                //Routing
-                final LatLng start = currentLocation;
-                final LatLng end = marker.getPosition();
+                    //Routing
+                    final LatLng start = currentLocation;
+                    final LatLng end = marker.getPosition();
 
-                final Routing routing = new Routing(Routing.TravelMode.WALKING);
+                    final Routing routing = new Routing(Routing.TravelMode.WALKING);
 
-                RoutingListener routingListener = new RoutingListener() {
-                    @Override
-                    public void onRoutingFailure() {
-                    }
-                    @Override
-                    public void onRoutingStart() {
-                    }
-                    @Override
-                    public void onRoutingSuccess(PolylineOptions polylineOptions, Route route) {
-                        if (polyline != null)
-                            polyline.remove();
-                        polyline = null;
-                        PolylineOptions polyOptions = new PolylineOptions();
-                        polyOptions.color(Color.BLACK);
-                        polyOptions.width(10);
-                        polyOptions.addAll(polylineOptions.getPoints());
-                        polyline = mMap.addPolyline(polyOptions);
-                    }
-                };
-                routing.registerListener(routingListener);
-                routing.execute(start, end);
+                    RoutingListener routingListener = new RoutingListener() {
+                        @Override
+                        public void onRoutingFailure() {
+                        }
 
-                return false;
+                        @Override
+                        public void onRoutingStart() {
+                        }
+
+                        @Override
+                        public void onRoutingSuccess(PolylineOptions polylineOptions, Route route) {
+                            if (polyline != null)
+                                polyline.remove();
+                            polyline = null;
+                            PolylineOptions polyOptions = new PolylineOptions();
+                            polyOptions.color(Color.BLACK);
+                            polyOptions.width(10);
+                            polyOptions.addAll(polylineOptions.getPoints());
+                            polyline = mMap.addPolyline(polyOptions);
+                        }
+                    };
+                    routing.registerListener(routingListener);
+                    routing.execute(start, end);
+
+                    return false;
+                }
             }
         });
         fab.setOnClickListener(new View.OnClickListener() {
