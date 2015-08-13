@@ -86,7 +86,6 @@ public class MapsActivity extends FragmentActivity{
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "ChUKpoLVli5C5y8oQfv4EmLILIXku8KpXjMmqCzG", "6VFpmrRjxRudE572ep15xk7j9ioBJ19KKTFWl4rw");
 
-
         fab = (ActionButton) findViewById(R.id.action_button);
 
         setUpMapIfNeeded();

@@ -2,6 +2,7 @@ package com.alex.grocer_free;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -9,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GestureDetectorCompat;
@@ -59,6 +61,11 @@ public class DrawerFragment extends Fragment {
     String objectId;
     ParseGeoPoint fruitLatLng;
     ParseFile img;
+    ParseFile img2;
+    ParseFile img3;
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,7 +79,10 @@ public class DrawerFragment extends Fragment {
         listView = (ListView) frag.findViewById(R.id.update_list);
         final EditText updateEdit = (EditText) frag.findViewById(R.id.update_edit);
         Button updateListButton = (Button) frag.findViewById(R.id.updateListButton);
-        final ImageView imageView = (ImageView) frag.findViewById(R.id.image);
+        Button updatePhoto = (Button) frag.findViewById(R.id.update_photo);
+        final ImageView imageView1 = (ImageView) frag.findViewById(R.id.image1);
+        final ImageView imageView2 = (ImageView) frag.findViewById(R.id.image2);
+        final ImageView imageView3 = (ImageView) frag.findViewById(R.id.image3);
         final TextView fruitType = (TextView) frag.findViewById(R.id.fruit_type);
         final TextView location = (TextView) frag.findViewById(R.id.location);
 
@@ -96,6 +106,8 @@ public class DrawerFragment extends Fragment {
                 des = fruit.getString("description");
                 fruitLatLng = fruit.getParseGeoPoint("LatLng");
                 img = fruit.getParseFile("images");
+                img2 = fruit.getParseFile("images2");
+                img3 = fruit.getParseFile("images3");
                 try {
                     addresses = geocoder.getFromLocation(lat, lng, 1);
                 } catch (IOException ie) {
@@ -110,9 +122,23 @@ public class DrawerFragment extends Fragment {
                 location.setText(addresses.get(0).getSubLocality() + ", " + addresses.get(0).getLocality());
                 description.setText((des.split("###"))[0]);
                 try {
-                    imageView.setImageBitmap(getImage(img.getData()));
+                    imageView1.setImageBitmap(getImage(img.getData()));
                 } catch (ParseException e1) {
                     e1.printStackTrace();
+                }
+                if (img2 != null) {
+                    try {
+                        imageView2.setImageBitmap(getImage(img2.getData()));
+                    } catch (ParseException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                if (img3 != null) {
+                    try {
+                        imageView3.setImageBitmap(getImage(img3.getData()));
+                    } catch (ParseException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             }
         });
@@ -140,7 +166,7 @@ public class DrawerFragment extends Fragment {
                     public void done(ParseObject tree, ParseException e) {
 
                         ArrayList<String> updates = getUpdates(tree.getString("description"));
-                        for(String i : updates){
+                        for (String i : updates) {
                             Log.d("updateItems", i);
                         }
                         UpdateListAdapter adapter = new UpdateListAdapter(context,
@@ -150,6 +176,7 @@ public class DrawerFragment extends Fragment {
                 });
             }
         });
+
         return frag;
                 //return inflater.inflate(R.layout.drawer_fragment, container, false);
     }
