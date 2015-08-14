@@ -85,10 +85,22 @@ function CreateMarkerFromObject(object){
 
 	var ico = AttachIcon(object.attributes.fruitType);
 	var marker = L.marker(latlon, {icon: ico}).addTo(map);
-	marker.bindPopup("<h3>"+ title + "</h3><div><img src='" + img.url() + "'/></div> Description :<br>" + description);
+
+	var newDescription = description.split("###");
+
+	var $list = $('<ol><ol/>');
+	newDescription.forEach(function (item, index, array){
+		$list.append("<li>"+item+"</li>");
+		console.log(item);
+	})
+
+
+	marker.bindPopup("<h3>"+ title + "</h3><div><img src='" + img.url() + "'/>" +
+		"</div> <div class='describe'><h4>Description</h4>"+ $list.html() +"</div>");
+
+
 
 	//marker.setIcon(ico);
-
 }
 
 function AttachIcon(fruitType){
