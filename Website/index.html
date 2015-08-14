@@ -31,13 +31,19 @@
 <body>
 	<div class="container fill">
 		
-			<h1>GrocerFree</h1>
+			<h1 class="title">GrocerFree</h1>
 			<div id="map"></div>
 		
 	</div>
 <script>
 initmap();
 loadFromParse();
+if (typeof navigator.geolocation == 'undefined'){
+	//Nothing to do
+}
+else{
+	navigator.geolocation.getCurrentPosition(granted, denied);
+}
 </script>
 </body>
 

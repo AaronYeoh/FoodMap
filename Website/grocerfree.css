@@ -1,9 +1,10 @@
 /*Deliberately ugly colours to encourage changing*/
 body {
-     background-color: blue;
 	 padding: 0;
      margin: 0;
+
 }
+
 
 #map
 {
@@ -29,8 +30,14 @@ html, body
     max-width: 100%;
 	padding: 0;
      margin: 0;
+    background-color: #324238;
 }
 
-h1 {
-	color: red;
+
+.title {
+    color: #f2c224
+}
+
+.leaflet-popup-pane{
+    background-color: #f4f5e3;
 }
