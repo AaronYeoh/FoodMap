@@ -70,11 +70,12 @@ function CreateMarkerFromObject(object){
 	var lat = (object.attributes.LatLng.latitude);
 	var lon = (object.attributes.LatLng.longitude);
 	var img = object.get("images");
+	var title = object.attributes.fruitType;
 	//var imageUrl = (object.attributes.images.url());
 	var description = object.attributes.description;
 	var latlon = L.latLng(lat, lon);
 	var marker = L.marker(latlon).addTo(map);
-	marker.bindPopup("<img src='" + img.url() + "'/> Description :<br>" + description);
+	marker.bindPopup("<h3>"+ title + "</h3><div><img src='" + img.url() + "'/></div> Description :<br>" + description);
 
 }
 
