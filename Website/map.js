@@ -55,20 +55,29 @@ function loadFromParse(){
 			// Do something with the returned Parse.Object values
 			for (var i = 0; i < results.length; i++) {
 				var object = results[i];
-				alert(object.id + ' - ' + object.get('fruitType') + ' - ' + object.get('description') + ' - ' + object.get('LatLng'));
+
+				CreateMarkerFromObject(object);
 			}
 		},
 		error: function(error) {
 			alert("Error: " + error.code + " " + error.message);
 		}
 	});
+}
 
-	//alert(str);
+function CreateMarkerFromObject(object){
+	console.log(object);
+	var lat = (object.attributes.LatLng.latitude);
+	var lon = (object.attributes.LatLng.longitude);
+	var img = object.get("images");
+	//var imageUrl = (object.attributes.images.url());
+	var description = object.attributes.description;
+	var latlon = L.latLng(lat, lon);
+	var marker = L.marker(latlon).addTo(map);
+	marker.bindPopup("<img src='" + img.url() + "'/> Description :<br>" + description);
 
-	//var TestObject = Parse.Object.extend("TestObject");
-	//var testObject = new TestObject();
-	//testObject.save({foo: "bar"}).then(function(object) {
-	//	alert("yay! it worked");
-	//});
+}
+
+function CreateMarkerWithPopup(){
 
 }
