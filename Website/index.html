@@ -31,19 +31,23 @@
 <body>
 	<div class="container fill">
 		
-			<h1 class="title">GrocerFree</h1>
+			<h1 id="title">GrocerFree</h1>
 			<div id="map"></div>
-		
+		<footer>
+			<p class="add">Add a plant!</p>
+			<form id="grocer-form" class="row">
+				<input type="text" id="name" placeholder="Name" class='col-md-2 form-control  grocer-input-name'>
+				<input type="text" id="description" placeholder="Description" class='col-md-4 form-control  grocer-input-description'>
+				<input type="file" id="image" class="col-md-3 grocer-input-image" placeholder="Upload an image" accept="image/*;capture=camera">
+				<button type='submit' class='col-md-1 btn-default grocer-button'>Submit</button>
+			</form>
+		</footer>
 	</div>
+
 <script>
 initmap();
 loadFromParse();
-//if (typeof navigator.geolocation == 'undefined'){
-//	//Nothing to do
-//}
-//else{
-//	navigator.geolocation.getCurrentPosition(granted, denied);
-//}
+
 </script>
 </body>
 

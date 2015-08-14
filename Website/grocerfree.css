@@ -5,7 +5,9 @@ body {
 
 }
 
-
+li{
+    list-style-type: none;
+}
 #map
 {
     width: 100px;
@@ -34,10 +36,44 @@ html, body
 }
 
 
-.title {
+#title {
     color: #f2c224
 }
 
 .leaflet-popup-pane{
     background-color: #f4f5e3;
+}
+.form-control{
+    /*display: inline-block !important;*/
+    font-size: 25px;
+    height: 30px;
+    margin-left: 10px;
+}
+.grocer-input-name {
+    width:15% !important;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.grocer-input-description {
+    width:20% !important;
+    margin-right: 15px;
+}
+
+.grocer-input-image {
+    /*width:25% !important;*/
+    margin-right: 15px;
+}
+.grocer-button{
+    /*display: inline-block;*/
+    /*height:30px;*/
+    margin-bottom:10px;
+}
+.add{
+    /*display: inline-block !important;*/
+    color:#f4f5e3;
+}
+
+.row{
+    background-color: #324238;
 }

@@ -19,37 +19,9 @@ function initmap() {
 	// start the map in Auckland, NZ
 	map.setView(new L.LatLng(-36.840556,174.74),9);
 	map.addLayer(osm);
-
-
-	//Let's add a marker in Auckland
-	//var marker = L.marker([-36.840556,174.74]).addTo(map);
-	
-	//How about another marker?
-	//shadowUrl: '',
-	//var lemonIcon = L.icon({
-    //iconUrl: "http://www.tuxpaint.org/stamps/stamps-thumbs/stamps/food/fruit/cartoon/lemon.jpg",
-    //
-    //
-    //iconSize:     [38, 38], // size of the icon
-    ////shadowSize:   [50, 64], // size of the shadow
-    //iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
-    ////shadowAnchor: [4, 62],  // the same for the shadow
-    //popupAnchor:  [0,0] // point from which the popup should open relative to the iconAnchor
-	//});
-	//
-	//
-	//var marker = L.marker([-36.840560,174.74], {icon: lemonIcon}).addTo(map);
-	//
-	////Add a popup
-	//marker.bindPopup("<important>I'm not a lemon</important><br>I'm a popup.");
-	
-	
 }
 
-function granted(position){
-	alert("Your position is: lat" + position.coords.latitude + " | long: " + position.coords.longitude);
-}
-function denied(){}
+
 
 function loadFromParse(){
 	Parse.initialize("ChUKpoLVli5C5y8oQfv4EmLILIXku8KpXjMmqCzG", "DbIfTbnWOPmqVWcG0epJelvIujUwos5MktAVCwfg");
@@ -88,7 +60,7 @@ function CreateMarkerFromObject(object){
 
 	var newDescription = description.split("###");
 
-	var $list = $('<ol><ol/>');
+	var $list = $('<ol/>');
 	newDescription.forEach(function (item, index, array){
 		$list.append("<li>"+item+"</li>");
 		console.log(item);
@@ -96,7 +68,9 @@ function CreateMarkerFromObject(object){
 
 
 	marker.bindPopup("<h3>"+ title + "</h3><div><img src='" + img.url() + "'/>" +
-		"</div> <div class='describe'><h4>Description</h4>"+ $list.html() +"</div>");
+		"</div> <div style='width: 300px; height: 150px; overflow-y: scroll;'><h4>Description</h4>"+ $list.html() +"</div>" +
+		"<!--<input type='text' class='form-control' placeholder='Add a comment'>" +
+		"<button type='submit' class='btn-lg'>Submit</button>-->");
 
 
 
@@ -105,12 +79,24 @@ function CreateMarkerFromObject(object){
 
 function AttachIcon(fruitType){
 	var baseUrl = "resources/";
-	if (fruitType == "orange"){
-		var url = baseUrl+"orange.png";
+	var newstr = fruitType.toLowerCase();
+	switch (newstr){
+		case "orange":
+			var url = baseUrl+"orange.png";
+			break;
+		case "apple":
+			var url = baseUrl+"apple.png";
+			break;
+		case "lemon":
+			var url = baseUrl+"lemon.png";
+			break;
+		case "avocado":
+			var url = baseUrl+"avo.png";
+			break;
+		default :
+
 	}
-	else {
-		var url = baseUrl+"apple.png";
-	}
+
 	var fruitIcon = L.icon({
 		iconUrl: url,
 		shadowUrl:"resources/shadow.png",
@@ -124,7 +110,77 @@ function AttachIcon(fruitType){
 	});
 	return fruitIcon;
 }
+$(document).ready(function () {
+	$('#grocer-form').on('submit', function (event) {
+		console.log('submit', event);
 
-function CreateMarkerWithPopup(){
+		event.preventDefault();
+		if (typeof navigator.geolocation == 'undefined') {
+			//Nothing to do
+			alert("Please enable geolocation to submit new items.");
+		}
+		else {
+			navigator.geolocation.getCurrentPosition(granted, denied);
+		}
+
+	});
+});
+
+function granted(position){
+	alert("Your position is: lat" + position.coords.latitude + " | long: " + position.coords.longitude);
+
+
+	var name = $("#name").val();
+	var desc = $("#description").val();
+	var point = new Parse.GeoPoint({latitude: position.coords.latitude, longitude: position.coords.longitude});
+	var image = $("#image")[0];
+	if (image.files.length>0){
+		var file = image.files[0];
+
+		var filename = $("#image").val().split('\\').pop();
+
+		alert(name);
+		alert(file);
+
+		var parseFile = new Parse.File(filename, file);
+		console.log(parseFile);
+
+		parseFile.save().then(function() {
+			console.log("The file has been saved" + filename);
+		}, function(error) {
+			alert("The file either could not be read, or could not be saved");
+		});
+	}
+
+
+
+
+	console.log('tree name', name);
+	console.log('description', desc);
+
+	var FruitObject = Parse.Object.extend("TestObject");
+	var fruit = new FruitObject();
+	fruit.set("fruitType", name);
+	fruit.set("description", desc);
+	fruit.set("LatLng",point);
+	fruit.set("images", parseFile);
+
+	fruit.save(null, {
+		success: function(fruit) {
+			// Execute any logic that should take place after the object is saved.
+			alert('New object created with objectId: ' + fruit.id);
+		},
+		error: function(fruit, error) {
+			// Execute any logic that should take place if the save fails.
+			// error is a Parse.Error with an error code and message.
+			alert('Failed to create new object, with error code: ' + error.message);
+		}
+	});
+
+
+	CreateMarkerFromObject(fruit);
+
+	console.log('end');
 
 }
+function denied(){}
