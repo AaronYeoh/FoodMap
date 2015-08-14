@@ -79,10 +79,10 @@ public class DrawerFragment extends Fragment {
         listView = (ListView) frag.findViewById(R.id.update_list);
         final EditText updateEdit = (EditText) frag.findViewById(R.id.update_edit);
         Button updateListButton = (Button) frag.findViewById(R.id.updateListButton);
-        Button updatePhoto = (Button) frag.findViewById(R.id.update_photo);
+        //Button updatePhoto = (Button) frag.findViewById(R.id.update_photo);
         final ImageView imageView1 = (ImageView) frag.findViewById(R.id.image1);
-        final ImageView imageView2 = (ImageView) frag.findViewById(R.id.image2);
-        final ImageView imageView3 = (ImageView) frag.findViewById(R.id.image3);
+        //final ImageView imageView2 = (ImageView) frag.findViewById(R.id.image2);
+        //final ImageView imageView3 = (ImageView) frag.findViewById(R.id.image3);
         final TextView fruitType = (TextView) frag.findViewById(R.id.fruit_type);
         final TextView location = (TextView) frag.findViewById(R.id.location);
 
@@ -126,20 +126,7 @@ public class DrawerFragment extends Fragment {
                 } catch (ParseException e1) {
                     e1.printStackTrace();
                 }
-                if (img2 != null) {
-                    try {
-                        imageView2.setImageBitmap(getImage(img2.getData()));
-                    } catch (ParseException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-                if (img3 != null) {
-                    try {
-                        imageView3.setImageBitmap(getImage(img3.getData()));
-                    } catch (ParseException e1) {
-                        e1.printStackTrace();
-                    }
-                }
+
             }
         });
 

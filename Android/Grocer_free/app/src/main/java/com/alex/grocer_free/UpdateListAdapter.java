@@ -44,8 +44,4 @@ public class UpdateListAdapter extends ArrayAdapter {
         return convertView;
     }
 
-    @Override
-    public long getItemId(int position) {
-        return (long) getItem(position);
-    }
 }

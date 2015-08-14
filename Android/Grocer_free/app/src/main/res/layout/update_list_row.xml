@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
     >
 
     <TextView
@@ -9,9 +10,12 @@
         android:layout_height="wrap_content"
         android:textColor="#82807b"
         android:id="@+id/date"
-        />
+        style="@android:style/TextAppearance.Small"
+        android:layout_gravity="right"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/update_description"/>
+        android:id="@+id/update_description"
+        style="@android:style/TextAppearance.Small"
+        />
 </LinearLayout>
