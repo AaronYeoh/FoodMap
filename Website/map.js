@@ -127,7 +127,7 @@ $(document).ready(function () {
 });
 
 function granted(position){
-	alert("Your position is: lat" + position.coords.latitude + " | long: " + position.coords.longitude);
+	//alert("Your position is: lat" + position.coords.latitude + " | long: " + position.coords.longitude);
 
 
 	var name = $("#name").val();
@@ -139,8 +139,8 @@ function granted(position){
 
 		var filename = $("#image").val().split('\\').pop();
 
-		alert(name);
-		alert(file);
+		//alert(name);
+		//alert(file);
 
 		var parseFile = new Parse.File(filename, file);
 		console.log(parseFile);
@@ -168,7 +168,7 @@ function granted(position){
 	fruit.save(null, {
 		success: function(fruit) {
 			// Execute any logic that should take place after the object is saved.
-			alert('New object created with objectId: ' + fruit.id);
+			alert('Success! You\'ve submitted a new item!');
 		},
 		error: function(fruit, error) {
 			// Execute any logic that should take place if the save fails.
